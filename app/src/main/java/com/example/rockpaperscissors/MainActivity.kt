@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        var root = findViewById(R.id.root) as ConstraintLayout
         var rock = findViewById(R.id.rock) as CardView
         var paper = findViewById(R.id.paper) as CardView
         var scissors = findViewById(R.id.scissors) as CardView
@@ -31,7 +30,6 @@ class MainActivity : AppCompatActivity() {
         var lose = findViewById(R.id.lose) as TextView
         var draw = findViewById(R.id.draw) as TextView
         var allChoices = listOf<CardView>(rock, paper, scissors, rockCom, paperCom, scissorsCom)
-
 
         fun reset() {
             allChoices.map { it.setCardBackgroundColor(Color.WHITE) }
@@ -90,15 +88,8 @@ class MainActivity : AppCompatActivity() {
         scissors.setOnClickListener{
            playerClick(scissors)
         }
-
         refresh.setOnClickListener{
             playerClick()
         }
-
-
     }
-
-
-
-
 }

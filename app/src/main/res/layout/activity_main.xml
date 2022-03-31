@@ -182,18 +182,7 @@
             android:padding="@dimen/_3sdp"
             android:src="@drawable/batu" />
     </androidx.cardview.widget.CardView>
-<!--    <ImageView-->
-<!--        android:layout_marginBottom="@dimen/_15sdp"-->
-<!--        android:id="@+id/imageView2"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:src="@drawable/batu"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/imageView"-->
-<!--        app:layout_constraintDimensionRatio="1:1"-->
-<!--        app:layout_constraintEnd_toStartOf="@+id/guideline11"-->
-<!--        app:layout_constraintHeight_percent="0.1"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        />-->
+
     <androidx.cardview.widget.CardView
         android:id="@+id/paper"
         android:layout_width="0dp"
@@ -215,20 +204,6 @@
             android:src="@drawable/kertas" />
     </androidx.cardview.widget.CardView>
 
-<!--    <ImageView-->
-<!--        android:id="@+id/imageView"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:src="@drawable/kertas"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/guideline7"-->
-<!--        app:layout_constraintDimensionRatio="1:1"-->
-<!--        app:layout_constraintEnd_toStartOf="@+id/guideline11"-->
-<!--        app:layout_constraintHeight_percent="0.1"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/guideline7"-->
-<!--        android:background="#C3DAE9"-->
-<!--        />-->
-
     <androidx.cardview.widget.CardView
         app:cardCornerRadius="10dp"
         android:layout_marginTop="@dimen/_15sdp"
@@ -248,20 +223,6 @@
             android:src="@drawable/gunting" />
 
     </androidx.cardview.widget.CardView>
-
-<!--    <ImageView-->
-<!--        android:id="@+id/imageView3"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:src="@drawable/gunting"-->
-<!--        app:layout_constraintDimensionRatio="1:1"-->
-<!--        app:layout_constraintEnd_toStartOf="@+id/guideline11"-->
-<!--        app:layout_constraintHeight_percent="0.1"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        android:layout_marginTop="@dimen/_15sdp"-->
-
-<!--        />-->
-
 
     <TextView
         android:id="@+id/textView2"
@@ -297,19 +258,6 @@
             android:src="@drawable/batu" />
     </androidx.cardview.widget.CardView>
 
-<!--    <ImageView-->
-<!--        android:id="@+id/imageView4"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:src="@drawable/batu"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/imageView5"-->
-<!--        app:layout_constraintDimensionRatio="1:1"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHeight_percent="0.1"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/guideline11"-->
-<!--        android:layout_marginBottom="@dimen/_15sdp"-->
-<!--        />-->
-
     <androidx.cardview.widget.CardView
         android:id="@+id/paperCom"
         android:layout_width="0dp"
@@ -331,18 +279,6 @@
             android:src="@drawable/kertas" />
     </androidx.cardview.widget.CardView>
 
-<!--    <ImageView-->
-<!--        android:id="@+id/imageView5"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:src="@drawable/kertas"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/guideline7"-->
-<!--        app:layout_constraintDimensionRatio="1:1"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHeight_percent="0.1"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/guideline11"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/guideline7" />-->
-
     <androidx.cardview.widget.CardView
         android:id="@+id/scissorsCom"
         android:layout_width="0dp"
@@ -363,17 +299,6 @@
             android:padding="@dimen/_3sdp"
             android:src="@drawable/gunting" />
     </androidx.cardview.widget.CardView>
-<!--    <ImageView-->
-<!--        android:id="@+id/imageView6"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:src="@drawable/gunting"-->
-<!--        app:layout_constraintDimensionRatio="1:1"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHeight_percent="0.1"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/guideline11"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/imageView5"-->
-<!--        android:layout_marginTop="@dimen/_15sdp"/>-->
 
     <ImageView
         android:id="@+id/refresh"
@@ -434,10 +359,5 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.95" />
-
-
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
