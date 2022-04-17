@@ -3,7 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/USER/Desktop/Binar/CHAPTER 4/RockPaperScissors/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/USER/.gradle/caches/transforms-3/1cea90fe5204537165c0446a78fc541d/transformed/AppIntro-6.2.0/res/drawable/ic_appintro_done.xml" value="0.157" />
+        <entry key="..\:/Users/USER/.gradle/caches/transforms-3/1cea90fe5204537165c0446a78fc541d/transformed/AppIntro-6.2.0/res/drawable/ic_appintro_fab_done.xml" value="0.157" />
+        <entry key="..\:/Users/USER/.gradle/caches/transforms-3/1cea90fe5204537165c0446a78fc541d/transformed/AppIntro-6.2.0/res/layout/appintro_fragment_intro.xml" value="0.19882246376811594" />
+        <entry key="..\:/Users/USER/.gradle/caches/transforms-3/1cea90fe5204537165c0446a78fc541d/transformed/AppIntro-6.2.0/res/layout/appintro_intro_layout.xml" value="0.19882246376811594" />
+        <entry key="..\:/Users/USER/.gradle/caches/transforms-3/1cea90fe5204537165c0446a78fc541d/transformed/AppIntro-6.2.0/res/layout/appintro_intro_layout2.xml" value="0.19882246376811594" />
+        <entry key="..\:/Users/USER/Desktop/Binar/CHAPTER 4/RockPaperScissors/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/USER/Desktop/Binar/CHAPTER 4/RockPaperScissors/app/src/main/res/layout/activity_main2.xml" value="0.14703425229741018" />
+        <entry key="..\:/Users/USER/Desktop/Binar/CHAPTER 4/RockPaperScissors/app/src/main/res/layout/activity_menu.xml" value="0.18" />
+        <entry key="..\:/Users/USER/Desktop/Binar/CHAPTER 4/RockPaperScissors/app/src/main/res/layout/activity_splash.xml" value="0.15" />
+        <entry key="..\:/Users/USER/Desktop/Binar/CHAPTER 4/RockPaperScissors/app/src/main/res/layout/dialog_winlose.xml" value="0.33" />
+        <entry key="..\:/Users/USER/Desktop/Binar/CHAPTER 4/RockPaperScissors/app/src/main/res/layout/fragment_slide1.xml" value="0.21" />
+        <entry key="..\:/Users/USER/Desktop/Binar/CHAPTER 4/RockPaperScissors/app/src/main/res/layout/fragment_slide2.xml" value="0.5" />
+        <entry key="..\:/Users/USER/Desktop/Binar/CHAPTER 4/RockPaperScissors/app/src/main/res/layout/fragment_slide3.xml" value="0.25" />
       </map>
     </option>
   </component>

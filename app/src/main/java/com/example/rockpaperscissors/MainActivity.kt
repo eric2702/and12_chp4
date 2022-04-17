@@ -1,35 +1,51 @@
 package com.example.rockpaperscissors
 
+import android.app.Dialog
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
-import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.rockpaperscissors.action.BatuAction
 import com.example.rockpaperscissors.action.GuntingAction
 import com.example.rockpaperscissors.action.KertasAction
-import java.util.*
+import com.example.rockpaperscissors.databinding.ActivityMainBinding
+import com.example.rockpaperscissors.fragment.WinLoseDialogFragment
 
+
+private lateinit var binding: ActivityMainBinding
 class MainActivity : AppCompatActivity() {
+    val handler = Handler()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        var rock = findViewById(R.id.rock) as CardView
-        var paper = findViewById(R.id.paper) as CardView
-        var scissors = findViewById(R.id.scissors) as CardView
-        var refresh = findViewById(R.id.refresh) as ImageView
-        var rockCom = findViewById(R.id.rockCom) as CardView
-        var paperCom = findViewById(R.id.paperCom) as CardView
-        var scissorsCom = findViewById(R.id.scissorsCom) as CardView
-        var versus = findViewById(R.id.versus) as TextView
-        var win = findViewById(R.id.win) as TextView
-        var lose = findViewById(R.id.lose) as TextView
-        var draw = findViewById(R.id.draw) as TextView
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+        val rock = binding.rock
+        val paper = binding.paper
+        val scissors = binding.scissors
+        val refresh = binding.refresh
+        val rockCom = binding.rockCom
+        val paperCom = binding.paperCom
+        val scissorsCom = binding.scissorsCom
+        val versus = binding.versus
+        val win = binding.win
+        val lose = binding.lose
+        val draw = binding.draw
+        val close = binding.close
+        val pemain1 = binding.pemain1
+
         var allChoices = listOf<CardView>(rock, paper, scissors, rockCom, paperCom, scissorsCom)
+        var comChoices = listOf<CardView>(rockCom, paperCom, scissorsCom)
+        val nameData = intent.getStringExtra("NAME_DATA").toString()
+        pemain1.text = nameData
+        win.text = nameData + "\nMenang"
+
+
+
 
         fun reset() {
             allChoices.map { it.setCardBackgroundColor(Color.WHITE) }
@@ -43,13 +59,25 @@ class MainActivity : AppCompatActivity() {
             choice.setCardBackgroundColor(Color.parseColor("#C3DAE9"))
         }
 
+        fun disableColor(choice: CardView) {
+            choice.setCardBackgroundColor(Color.parseColor("#FFFFFF"))
+        }
+
+
+
+        val dialogWinLoseFragment = WinLoseDialogFragment()
+        val bundle = Bundle()
+
         fun showMessage(condition: String) {
             when (condition) {
                 "win" -> {
                     win.setVisibility(View.VISIBLE)
+                    bundle.putString("NAME_DATA", nameData)
+
                 }
                 "lose" -> {
                     lose.setVisibility(View.VISIBLE)
+                    bundle.putString("NAME_DATA", "CPU")
                 }
                 else -> {
                     draw.setVisibility(View.VISIBLE)
@@ -67,29 +95,69 @@ class MainActivity : AppCompatActivity() {
                     else -> GuntingAction()
                 }
                 val suitCom = DataSources.getRandomSuit()
-                when (suitCom.name) {
-                    "batu" -> activateColor(rockCom)
-                    "kertas" -> activateColor(paperCom)
-                    else -> activateColor(scissorsCom)
+                handler.removeCallbacksAndMessages(null); //remove postdelayed animation
+                var delay : Long = 0
+                for (i in 0..2) {
+                    comChoices.map {
+                        handler.postDelayed({
+                            activateColor(it)
+                        }, delay)
+                        delay = delay + 500
+                        handler.postDelayed({
+                            disableColor(it)
+                        }, delay)
+                    }
                 }
-                var result = suitUser.action(suitCom.name)
-                versus.setVisibility(View.INVISIBLE)
-                showMessage(result)
+                handler.postDelayed({
+                    when (suitCom.name) {
+                        "batu" -> activateColor(rockCom)
+                        "kertas" -> activateColor(paperCom)
+                        else -> activateColor(scissorsCom)
+                    }
+                    val toastMessage = "CPU Memilih " + suitCom.name.capitalize()
+                    Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT).show()
+                    var result = suitUser.action(suitCom.name)
+                    versus.setVisibility(View.INVISIBLE)
+                    showMessage(result)
+
+                    bundle.putString("RESULT", result)
+                    dialogWinLoseFragment.setArguments(bundle)
+                    dialogWinLoseFragment.show(supportFragmentManager, null)
+                }, delay)
+
 //                Toast.makeText(applicationContext, result, Toast.LENGTH_SHORT).show()
             }
         }
 
+
+
+
+
         rock.setOnClickListener{
             playerClick(rock)
+            Toast.makeText(this, nameData + " Memilih Batu", Toast.LENGTH_SHORT).show()
         }
         paper.setOnClickListener{
             playerClick(paper)
+            Toast.makeText(this, nameData + " Memilih Kertas", Toast.LENGTH_SHORT).show()
         }
         scissors.setOnClickListener{
            playerClick(scissors)
+           Toast.makeText(this, nameData + " Memilih Gunting", Toast.LENGTH_SHORT).show()
         }
         refresh.setOnClickListener{
             playerClick()
+            handler.removeCallbacksAndMessages(null); //remove postdelayed animation
+
         }
+        close.setOnClickListener{
+            onBackPressed()
+            handler.removeCallbacksAndMessages(null); //remove postdelayed animation
+        }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        handler.removeCallbacksAndMessages(null); //remove postdelayed animation
     }
 }
