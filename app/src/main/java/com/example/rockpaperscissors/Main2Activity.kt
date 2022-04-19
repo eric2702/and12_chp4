@@ -104,7 +104,7 @@ class Main2Activity : AppCompatActivity() {
         }
 
         fun playerClick(choice: CardView) {
-            if (gameDone) {
+            if (gameDone || player1pick != null) {
                 return
             }
             choice?.let{
@@ -124,7 +124,7 @@ class Main2Activity : AppCompatActivity() {
         }
 
         fun player2Click(choice: CardView? = null) {
-            if (gameDone) {
+            if (gameDone || player2pick != null) {
                 return
             }
             choice?.let{
@@ -151,7 +151,9 @@ class Main2Activity : AppCompatActivity() {
 
         rock.setOnClickListener{
             if (!gameDone) {
-                Toast.makeText(this, nameData + " Memilih Batu", Toast.LENGTH_SHORT).show()
+                if (player1pick == null) {
+                    Toast.makeText(this, nameData + " Memilih Batu", Toast.LENGTH_SHORT).show()
+                }
             } else {
                 Toast.makeText(this, "Tekan Reset Dulu!", Toast.LENGTH_SHORT).show()
             }
@@ -160,7 +162,9 @@ class Main2Activity : AppCompatActivity() {
         }
         paper.setOnClickListener{
             if (!gameDone) {
-                Toast.makeText(this, nameData + " Memilih Kertas", Toast.LENGTH_SHORT).show()
+                if (player1pick == null) {
+                    Toast.makeText(this, nameData + " Memilih Kertas", Toast.LENGTH_SHORT).show()
+                }
             } else {
                 Toast.makeText(this, "Tekan Reset Dulu!", Toast.LENGTH_SHORT).show()
             }
@@ -169,7 +173,9 @@ class Main2Activity : AppCompatActivity() {
         }
         scissors.setOnClickListener{
             if (!gameDone) {
-                Toast.makeText(this, nameData + " Memilih Gunting", Toast.LENGTH_SHORT).show()
+                if (player1pick == null) {
+                    Toast.makeText(this, nameData + " Memilih Gunting", Toast.LENGTH_SHORT).show()
+                }
             } else {
                 Toast.makeText(this, "Tekan Reset Dulu!", Toast.LENGTH_SHORT).show()
             }
@@ -178,7 +184,9 @@ class Main2Activity : AppCompatActivity() {
         }
         rock2.setOnClickListener{
             if (!gameDone) {
-                Toast.makeText(this, "Player 2 Memilih Batu", Toast.LENGTH_SHORT).show()
+                if (player2pick == null) {
+                    Toast.makeText(this, "Player 2 Memilih Batu", Toast.LENGTH_SHORT).show()
+                }
             } else {
                 Toast.makeText(this, "Tekan Reset Dulu!", Toast.LENGTH_SHORT).show()
             }
@@ -187,7 +195,9 @@ class Main2Activity : AppCompatActivity() {
         }
         paper2.setOnClickListener{
             if (!gameDone) {
-                Toast.makeText(this, "Player 2 Memilih Kertas", Toast.LENGTH_SHORT).show()
+                if (player2pick == null) {
+                    Toast.makeText(this, "Player 2 Memilih Kertas", Toast.LENGTH_SHORT).show()
+                }
             } else {
                 Toast.makeText(this, "Tekan Reset Dulu!", Toast.LENGTH_SHORT).show()
             }
@@ -196,7 +206,9 @@ class Main2Activity : AppCompatActivity() {
         }
         scissors2.setOnClickListener{
             if (!gameDone) {
-                Toast.makeText(this, "Player 2 Memilih Gunting", Toast.LENGTH_SHORT).show()
+                if (player2pick == null) {
+                    Toast.makeText(this, "Player 2 Memilih Gunting", Toast.LENGTH_SHORT).show()
+                }
             } else {
                 Toast.makeText(this, "Tekan Reset Dulu!", Toast.LENGTH_SHORT).show()
             }
