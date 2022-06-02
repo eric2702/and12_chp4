@@ -1,59 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fr_lp3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white">
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+    <TextView
+        android:id="@+id/tv_select_oponent3"
+        android:layout_marginTop="20dp"
+        android:layout_width="138dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="vertical"
-        android:weightSum="1.0"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Please Chose Your Avatar Player Two"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/iv_icon_two3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.6"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.8">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.4"
-            android:src="@drawable/img_lp3" />
+    <ImageView
+        android:id="@+id/iv_icon_player3"
+        android:layout_marginTop="20dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:layout_constraintTop_toBottomOf="@+id/tv_select_oponent3"
+        app:layout_constraintEnd_toStartOf="@+id/iv_icon_two3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/img_batu" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.10"
-            android:autoSizeTextType="uniform"
-            android:gravity="center_horizontal"
-            android:text="Tuliskan namamu di bawah"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
+    <ImageView
+        android:id="@+id/iv_icon_two3"
+        android:layout_marginTop="20dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:layout_constraintTop_toBottomOf="@+id/tv_select_oponent3"
+        app:layout_constraintEnd_toEndOf="@id/iv_icon_three3"
+        app:layout_constraintStart_toStartOf="@+id/iv_icon_player3"
+        app:srcCompat="@drawable/img_gunting" />
 
-        <EditText
-            android:id="@+id/inputName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#0070C0"
-            android:gravity="center_horizontal"
-            android:layout_marginTop="@dimen/_3sdp"/>
+    <ImageView
+        android:id="@+id/iv_icon_three3"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_icon_two3"
+        app:layout_constraintTop_toBottomOf="@+id/tv_select_oponent3"
+        app:srcCompat="@drawable/img_kertas" />
 
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/iv_icon_four3"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_input_name2"
+        app:layout_constraintEnd_toEndOf="@+id/iv_icon_two3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_icon_two3"
+        app:srcCompat="@drawable/img_lp3" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
+    <ImageView
+        android:id="@+id/iv_icon_five3"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_input_name2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_icon_four3"
+        app:layout_constraintTop_toBottomOf="@+id/iv_icon_two3"
+        app:srcCompat="@drawable/img_lp1" />
+
+    <TextView
+        android:id="@+id/tv_input_name2"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Input Your Name"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/edt_name_p1"
+        app:layout_constraintTop_toBottomOf="@+id/iv_icon_five3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <EditText
+        android:id="@+id/edt_name_p1"
+        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.05" />
-    <androidx.constraintlayout.widget.Guideline
+        android:ems="10"
+        android:hint="Input Your Name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btn_ok2"
+        app:layout_constraintTop_toBottomOf="@+id/tv_input_name2" />
+
+    <Button
+        android:id="@+id/btn_ok2"
+        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5" />
+        android:text="Submit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edt_name_p1" />
 </androidx.constraintlayout.widget.ConstraintLayout>

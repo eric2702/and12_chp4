@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/fr_lp1"
+    android:id="@+id/fr_lp3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white">
+
     <TextView
         android:id="@+id/tv_select_oponent3"
         android:layout_marginTop="20dp"
         android:layout_width="138dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Please Chose Your Avatar Player One"
+        android:text="Please Chose Your Avatar For Computer"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/iv_icon_two3"
         app:layout_constraintEnd_toEndOf="parent"
@@ -52,7 +53,7 @@
         android:id="@+id/iv_icon_four3"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        app:layout_constraintBottom_toTopOf="@+id/tv_input_name2"
+
         app:layout_constraintEnd_toEndOf="@+id/iv_icon_two3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_icon_two3"
@@ -62,45 +63,13 @@
         android:id="@+id/iv_icon_five3"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        app:layout_constraintBottom_toTopOf="@+id/tv_input_name2"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iv_icon_four3"
         app:layout_constraintTop_toBottomOf="@+id/iv_icon_two3"
         app:srcCompat="@drawable/img_lp1" />
 
-    <TextView
-        android:id="@+id/tv_input_name2"
-        android:layout_width="140dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Input Your Name"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/edt_name_p1"
-        app:layout_constraintTop_toBottomOf="@+id/iv_icon_five3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        />
 
-    <EditText
-        android:id="@+id/edt_name_p1"
-        android:layout_marginTop="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Input Your Name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/btn_ok2"
-        app:layout_constraintTop_toBottomOf="@+id/tv_input_name2" />
 
-    <Button
-        android:id="@+id/btn_ok2"
-        android:layout_marginTop="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Submit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edt_name_p1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
