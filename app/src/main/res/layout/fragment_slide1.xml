@@ -52,7 +52,7 @@
         android:id="@+id/iv_icon_four3"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        app:layout_constraintBottom_toTopOf="@+id/tv_input_name2"
+        app:layout_constraintBottom_toTopOf="@+id/tv_input_name_player2"
         app:layout_constraintEnd_toEndOf="@+id/iv_icon_two3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_icon_two3"
@@ -62,27 +62,27 @@
         android:id="@+id/iv_icon_five3"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        app:layout_constraintBottom_toTopOf="@+id/tv_input_name2"
+        app:layout_constraintBottom_toTopOf="@+id/tv_input_name_player2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iv_icon_four3"
         app:layout_constraintTop_toBottomOf="@+id/iv_icon_two3"
         app:srcCompat="@drawable/img_lp1" />
 
     <TextView
-        android:id="@+id/tv_input_name2"
+        android:id="@+id/tv_input_name_player2"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Input Your Name"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/edt_name_p1"
+        app:layout_constraintBottom_toTopOf="@id/edt_name_player2"
         app:layout_constraintTop_toBottomOf="@+id/iv_icon_five3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         />
 
     <EditText
-        android:id="@+id/edt_name_p1"
+        android:id="@+id/edt_name_player2"
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -91,7 +91,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/btn_ok2"
-        app:layout_constraintTop_toBottomOf="@+id/tv_input_name2" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_input_name_player2" />
 
     <Button
         android:id="@+id/btn_ok2"
@@ -101,6 +101,6 @@
         android:text="Submit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edt_name_p1" />
+        app:layout_constraintTop_toBottomOf="@+id/edt_name_player2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

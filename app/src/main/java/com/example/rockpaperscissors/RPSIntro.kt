@@ -11,7 +11,6 @@ import androidx.viewpager.widget.ViewPager
 import com.example.rockpaperscissors.fragment.Slide1Fragment
 import com.example.rockpaperscissors.fragment.Slide2Fragment
 import com.example.rockpaperscissors.fragment.Slide3Fragment
-import com.example.rockpaperscissors.fragment.WinLoseDialogFragment
 import com.github.appintro.AppIntro
 
 class RPSIntro : AppIntro() {
@@ -43,7 +42,7 @@ class RPSIntro : AppIntro() {
 
     private fun launchToMenu() {
         val menuIntent = Intent(this, MenuActivity::class.java)
-        var name = findViewById<EditText>(R.id.edt_name_p1).getText().toString().trim()
+        var name = findViewById<EditText>(R.id.edt_name_player2).getText().toString().trim()
         if (name == "" || name == null) {
             Toast.makeText(this, "Masukkan Nama", Toast.LENGTH_SHORT).show()
         } else {
