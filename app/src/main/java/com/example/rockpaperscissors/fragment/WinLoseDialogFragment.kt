@@ -1,16 +1,15 @@
 package com.example.rockpaperscissors.fragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import com.example.rockpaperscissors.MenuActivity
 import com.example.rockpaperscissors.databinding.DialogWinloseBinding
 
-private lateinit var binding: DialogWinloseBinding
+
 class WinLoseDialogFragment : DialogFragment() {
+    private lateinit var binding: DialogWinloseBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
