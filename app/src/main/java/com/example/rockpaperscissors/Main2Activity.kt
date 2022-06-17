@@ -1,5 +1,6 @@
 package com.example.rockpaperscissors
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
@@ -12,11 +13,16 @@ import com.example.rockpaperscissors.action.GuntingAction
 import com.example.rockpaperscissors.action.KertasAction
 import com.example.rockpaperscissors.databinding.ActivityMain2Binding
 import com.example.rockpaperscissors.fragment.WinLoseDialogFragment
+import com.example.rockpaperscissors.model.Player
+import com.example.rockpaperscissors.presenter.InsertPresenter
+import com.example.rockpaperscissors.presenter.InsertPresenterImpl
+import com.example.rockpaperscissors.view.InsertView
 
-
-private lateinit var binding: ActivityMain2Binding
-class Main2Activity : AppCompatActivity() {
+class Main2Activity : AppCompatActivity(), InsertView {
     val handler = Handler()
+    private var _binding: ActivityMain2Binding? = null
+    private lateinit var binding: ActivityMain2Binding
+    private val insertPresenter: InsertPresenter = InsertPresenterImpl(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,9 +54,6 @@ class Main2Activity : AppCompatActivity() {
         var player2pick : String? = null
         var gameDone = false
 
-
-
-
         fun reset() {
             gameDone = false
             player1pick = null
@@ -81,11 +84,21 @@ class Main2Activity : AppCompatActivity() {
                 "win" -> {
                     win.setVisibility(View.VISIBLE)
                     bundle.putString("NAME_DATA", nameData)
+                    val newPlayer = Player(
+                        name = nameData,
+                        score = 5
+                    )
+                    insertPresenter.saveToDatabase(newPlayer)
 
                 }
                 "lose" -> {
                     lose.setVisibility(View.VISIBLE)
                     bundle.putString("NAME_DATA", "Pemain 2")
+                    val newPlayer = Player(
+                        name = "Pemain 2",
+                        score = 5
+                    )
+                    insertPresenter.saveToDatabase(newPlayer)
                 }
                 else -> {
                     draw.setVisibility(View.VISIBLE)
@@ -142,12 +155,6 @@ class Main2Activity : AppCompatActivity() {
                 }
             }
         }
-
-
-
-
-
-
 
         rock.setOnClickListener{
             if (!gameDone) {
@@ -227,5 +234,14 @@ class Main2Activity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         handler.removeCallbacksAndMessages(null); //remove postdelayed animation
+    }
+
+    override fun context(): Context {
+        return this
+    }
+
+    override fun onSaveDatabase() {
+        binding.pemain1.setText("")
+        binding.win.setText("")
     }
 }

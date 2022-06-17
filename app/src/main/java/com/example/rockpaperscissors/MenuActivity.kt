@@ -4,12 +4,11 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.rockpaperscissors.databinding.ActivityMenuBinding
 import com.google.android.material.snackbar.Snackbar
 
-private lateinit var binding: ActivityMenuBinding
 class MenuActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMenuBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMenuBinding.inflate(layoutInflater)

@@ -1,6 +1,6 @@
 package com.example.rockpaperscissors
 
-import android.app.Dialog
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
@@ -13,11 +13,16 @@ import com.example.rockpaperscissors.action.GuntingAction
 import com.example.rockpaperscissors.action.KertasAction
 import com.example.rockpaperscissors.databinding.ActivityMainBinding
 import com.example.rockpaperscissors.fragment.WinLoseDialogFragment
+import com.example.rockpaperscissors.model.Player
+import com.example.rockpaperscissors.presenter.InsertPresenter
+import com.example.rockpaperscissors.presenter.InsertPresenterImpl
+import com.example.rockpaperscissors.view.InsertView
 
-
-private lateinit var binding: ActivityMainBinding
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), InsertView {
     val handler = Handler()
+    private var _binding: ActivityMainBinding? = null
+    private lateinit var binding: ActivityMainBinding
+    private val insertPresenter: InsertPresenter = InsertPresenterImpl(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,8 +50,6 @@ class MainActivity : AppCompatActivity() {
         win.text = nameData + "\nMenang"
 
 
-
-
         fun reset() {
             allChoices.map { it.setCardBackgroundColor(Color.WHITE) }
             versus.setVisibility(View.VISIBLE)
@@ -63,8 +66,6 @@ class MainActivity : AppCompatActivity() {
             choice.setCardBackgroundColor(Color.parseColor("#FFFFFF"))
         }
 
-
-
         val dialogWinLoseFragment = WinLoseDialogFragment()
         val bundle = Bundle()
 
@@ -73,11 +74,20 @@ class MainActivity : AppCompatActivity() {
                 "win" -> {
                     win.setVisibility(View.VISIBLE)
                     bundle.putString("NAME_DATA", nameData)
-
+                    val newPlayer = Player(
+                        name = nameData,
+                        score = 5
+                    )
+                    insertPresenter.saveToDatabase(newPlayer)
                 }
                 "lose" -> {
                     lose.setVisibility(View.VISIBLE)
                     bundle.putString("NAME_DATA", "CPU")
+                    val newPlayer = Player(
+                        name = "CPU",
+                        score = 5
+                    )
+                    insertPresenter.saveToDatabase(newPlayer)
                 }
                 else -> {
                     draw.setVisibility(View.VISIBLE)
@@ -129,10 +139,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-
-
-
-
         rock.setOnClickListener{
             playerClick(rock)
             Toast.makeText(this, nameData + " Memilih Batu", Toast.LENGTH_SHORT).show()
@@ -159,5 +165,14 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         handler.removeCallbacksAndMessages(null); //remove postdelayed animation
+    }
+
+    override fun context(): Context {
+        return this
+    }
+
+    override fun onSaveDatabase() {
+        binding.pemain1.setText("")
+        binding.win.setText("")
     }
 }
