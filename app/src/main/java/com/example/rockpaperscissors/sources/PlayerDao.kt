@@ -7,7 +7,6 @@ import androidx.room.Query
 import androidx.room.Update
 import androidx.room.OnConflictStrategy.REPLACE
 
-
 @Dao
 interface PlayerDao {
     @Query("SELECT * FROM player")

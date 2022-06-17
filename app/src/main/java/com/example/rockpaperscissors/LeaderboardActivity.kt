@@ -25,6 +25,7 @@ class LeaderboardActivity: AppCompatActivity() {
         Player(11, "Kezia", 34),
         Player(12,"Dia", 20),
     )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLeaderboardBinding.inflate(layoutInflater)
@@ -39,7 +40,5 @@ class LeaderboardActivity: AppCompatActivity() {
         playersRecyclerView.adapter = playerAdapter
 
         playerAdapter.addList(playerLists)
-
-
     }
 }

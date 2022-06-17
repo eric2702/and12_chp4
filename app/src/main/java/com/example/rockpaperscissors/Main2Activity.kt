@@ -19,7 +19,7 @@ import com.example.rockpaperscissors.presenter.InsertPresenterImpl
 import com.example.rockpaperscissors.view.InsertView
 
 class Main2Activity : AppCompatActivity(), InsertView {
-    val handler = Handler()
+    private val handler = Handler()
     private var _binding: ActivityMain2Binding? = null
     private lateinit var binding: ActivityMain2Binding
     private val insertPresenter: InsertPresenter = InsertPresenterImpl(this)
@@ -44,11 +44,11 @@ class Main2Activity : AppCompatActivity(), InsertView {
         val close = binding.close
         val pemain1 = binding.pemain1
 
-        var allChoices = listOf<CardView>(rock, paper, scissors, rock2, paper2, scissors2)
-        var comChoices = listOf<CardView>(rock2, paper2, scissors2)
+        val allChoices = listOf(rock, paper, scissors, rock2, paper2, scissors2)
+        var comChoices = listOf(rock2, paper2, scissors2)
         val nameData = intent.getStringExtra("NAME_DATA").toString()
         pemain1.text = nameData
-        win.text = nameData + "\nMenang"
+        win.text = "$nameData\nMenang"
         var picked = false
         var player1pick : Suit? = null
         var player2pick : String? = null
@@ -60,10 +60,10 @@ class Main2Activity : AppCompatActivity(), InsertView {
             player2pick = null
             picked = false
             allChoices.map { it.setCardBackgroundColor(Color.WHITE) }
-            versus.setVisibility(View.VISIBLE)
-            win.setVisibility(View.INVISIBLE)
-            lose.setVisibility(View.INVISIBLE)
-            draw.setVisibility(View.INVISIBLE)
+            versus.visibility = View.VISIBLE
+            win.visibility = View.INVISIBLE
+            lose.visibility = View.INVISIBLE
+            draw.visibility = View.INVISIBLE
         }
 
         fun activateColor(choice: CardView) {
@@ -74,15 +74,13 @@ class Main2Activity : AppCompatActivity(), InsertView {
             choice.setCardBackgroundColor(Color.parseColor("#FFFFFF"))
         }
 
-
-
         val dialogWinLoseFragment = WinLoseDialogFragment()
         val bundle = Bundle()
 
         fun showMessage(condition: String) {
             when (condition) {
                 "win" -> {
-                    win.setVisibility(View.VISIBLE)
+                    win.visibility = View.VISIBLE
                     bundle.putString("NAME_DATA", nameData)
                     val newPlayer = Player(
                         name = nameData,
@@ -92,7 +90,7 @@ class Main2Activity : AppCompatActivity(), InsertView {
 
                 }
                 "lose" -> {
-                    lose.setVisibility(View.VISIBLE)
+                    lose.visibility = View.VISIBLE
                     bundle.putString("NAME_DATA", "Pemain 2")
                     val newPlayer = Player(
                         name = "Pemain 2",
@@ -101,17 +99,17 @@ class Main2Activity : AppCompatActivity(), InsertView {
                     insertPresenter.saveToDatabase(newPlayer)
                 }
                 else -> {
-                    draw.setVisibility(View.VISIBLE)
+                    draw.visibility = View.VISIBLE
                 }
             }
         }
 
         fun result(suitPlayer1 : Suit, suitPlayer2 : String) {
-            var result = suitPlayer1.action(DataSources.convertStringToData(suitPlayer2).name)
-            versus.setVisibility(View.INVISIBLE)
+            val result = suitPlayer1.action(DataSources.convertStringToData(suitPlayer2).name)
+            versus.visibility = View.INVISIBLE
             showMessage(result)
             bundle.putString("RESULT", result)
-            dialogWinLoseFragment.setArguments(bundle)
+            dialogWinLoseFragment.arguments = bundle
             dialogWinLoseFragment.show(supportFragmentManager, null)
             gameDone = true
         }
@@ -120,7 +118,7 @@ class Main2Activity : AppCompatActivity(), InsertView {
             if (gameDone || player1pick != null) {
                 return
             }
-            choice?.let{
+            choice.let{
                 activateColor(choice)
                 val suitPlayer1: Suit = when (choice) {
                     rock -> BatuAction()
@@ -159,7 +157,7 @@ class Main2Activity : AppCompatActivity(), InsertView {
         rock.setOnClickListener{
             if (!gameDone) {
                 if (player1pick == null) {
-                    Toast.makeText(this, nameData + " Memilih Batu", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "$nameData Memilih Batu", Toast.LENGTH_SHORT).show()
                 }
             } else {
                 Toast.makeText(this, "Tekan Reset Dulu!", Toast.LENGTH_SHORT).show()
@@ -170,7 +168,7 @@ class Main2Activity : AppCompatActivity(), InsertView {
         paper.setOnClickListener{
             if (!gameDone) {
                 if (player1pick == null) {
-                    Toast.makeText(this, nameData + " Memilih Kertas", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "$nameData Memilih Kertas", Toast.LENGTH_SHORT).show()
                 }
             } else {
                 Toast.makeText(this, "Tekan Reset Dulu!", Toast.LENGTH_SHORT).show()
@@ -181,7 +179,7 @@ class Main2Activity : AppCompatActivity(), InsertView {
         scissors.setOnClickListener{
             if (!gameDone) {
                 if (player1pick == null) {
-                    Toast.makeText(this, nameData + " Memilih Gunting", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "$nameData Memilih Gunting", Toast.LENGTH_SHORT).show()
                 }
             } else {
                 Toast.makeText(this, "Tekan Reset Dulu!", Toast.LENGTH_SHORT).show()
@@ -223,17 +221,17 @@ class Main2Activity : AppCompatActivity(), InsertView {
         }
         refresh.setOnClickListener{
             reset()
-            handler.removeCallbacksAndMessages(null); //remove postdelayed animation
+            handler.removeCallbacksAndMessages(null) //remove postdelayed animation
         }
         close.setOnClickListener{
             onBackPressed()
-            handler.removeCallbacksAndMessages(null); //remove postdelayed animation
+            handler.removeCallbacksAndMessages(null) //remove postdelayed animation
         }
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
-        handler.removeCallbacksAndMessages(null); //remove postdelayed animation
+        handler.removeCallbacksAndMessages(null) //remove postdelayed animation
     }
 
     override fun context(): Context {
@@ -241,7 +239,7 @@ class Main2Activity : AppCompatActivity(), InsertView {
     }
 
     override fun onSaveDatabase() {
-        binding.pemain1.setText("")
-        binding.win.setText("")
+        binding.pemain1.text = ""
+        binding.win.text = ""
     }
 }
