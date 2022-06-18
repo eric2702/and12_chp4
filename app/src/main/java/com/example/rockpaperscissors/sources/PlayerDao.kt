@@ -16,7 +16,7 @@ interface PlayerDao {
     fun getDetailPlayer(id: Int): Player?
 
     @Query("SELECT * FROM player WHERE name=:name")
-    fun getPlayerByName(name: String): Player?
+    fun getPlayerByName(name: String): List<Player>
 
     @Insert(onConflict = REPLACE)
     fun addPlayer(player: Player): Long

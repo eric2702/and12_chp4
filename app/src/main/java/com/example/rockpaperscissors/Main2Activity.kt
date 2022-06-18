@@ -26,6 +26,8 @@ class Main2Activity : AppCompatActivity(), InsertView, CheckNameView, UpdateView
     private val insertPresenter: InsertPresenter = InsertPresenterImpl(this)
     private val checkNamePresenter: CheckNamePresenter = CheckNamePresenterImpl(this)
     private val updatePresenter: UpdatePresenter = UpdatePresenterImpl(this)
+    lateinit var checkPlayer: Player
+    lateinit var globalName: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,6 +87,7 @@ class Main2Activity : AppCompatActivity(), InsertView, CheckNameView, UpdateView
                 "win" -> {
                     win.visibility = View.VISIBLE
                     bundle.putString("NAME_DATA", nameData)
+                    globalName = nameData
                     checkNamePresenter.getPlayerByName(nameData)
 //                    if (checkPlayer != null) {
 //                        checkPlayer.score = checkPlayer.score + 5
@@ -257,20 +260,28 @@ class Main2Activity : AppCompatActivity(), InsertView, CheckNameView, UpdateView
         binding.win.text = ""
     }
 
-    override fun onCheckDatabase(player: Player) {
-        if (player == null) {
-            Toast.makeText(this, "Awesome Memilih Batu", Toast.LENGTH_SHORT).show()
+    override fun onCheckDatabase(player: List<Player>) {
+        if (player.size > 0) {
+            Toast.makeText(this, "${player[0].score}", Toast.LENGTH_SHORT).show()
+
+            player[0].score = player[0].score + 5
+            updatePresenter.updateDatabase(player[0])
+
+        } else {
+            Toast.makeText(this, "Here", Toast.LENGTH_SHORT).show()
+            val newPlayer = Player(name=globalName, score=5)
+            Toast.makeText(this, "$globalName", Toast.LENGTH_SHORT).show()
+
+            insertNewPlayer(newPlayer)
+
+
         }
-        Toast.makeText(this, "Awesome Memilih aaaa", Toast.LENGTH_SHORT).show()
-
-        player.score = player.score + 5
-//        if (updatePresenter.updateDatabase(player)) {
-//
-//        }
-        updatePresenter.updateDatabase(player)
 
 
+    }
 
+    fun insertNewPlayer(player: Player) {
+        insertPresenter.saveToDatabase(player)
     }
 
 

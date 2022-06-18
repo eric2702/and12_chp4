@@ -5,5 +5,5 @@ import com.example.rockpaperscissors.model.Player
 
 interface CheckNameView {
     fun context(): Context
-    fun onCheckDatabase(player: Player)
+    fun onCheckDatabase(player: List<Player>)
 }

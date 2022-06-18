@@ -36,9 +36,9 @@ class StorageRepositoryImpl(private val context: Context) : StorageRepository {
         }
     }
 
-    override fun getDatabaseByName(playerName: String, result: (player: Player)->Unit) {
+    override fun getDatabaseByName(playerName: String, result: (player: List<Player>)->Unit) {
         GlobalScope.launch {
-            val playerData = playerDao?.getPlayerByName(playerName)
+            val playerData = playerDao?.getPlayerByName(playerName).orEmpty()
             MainScope().launch {
                 if (playerData != null) {
                     result.invoke(playerData)
