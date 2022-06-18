@@ -24,12 +24,14 @@ class MainActivity : AppCompatActivity(), InsertView {
     private var _binding: ActivityMainBinding? = null
     private lateinit var binding: ActivityMainBinding
     private val insertPresenter: InsertPresenter = InsertPresenterImpl(this)
+    private val nameData: String by lazy {
+        intent.getStringExtra("NAME_DATA").toString()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+        setContentView(binding.root)
         val rock = binding.rock
         val paper = binding.paper
         val scissors = binding.scissors
@@ -46,9 +48,8 @@ class MainActivity : AppCompatActivity(), InsertView {
 
         val allChoices = listOf(rock, paper, scissors, rockCom, paperCom, scissorsCom)
         val comChoices = listOf(rockCom, paperCom, scissorsCom)
-        val nameData = intent.getStringExtra("NAME_DATA").toString()
         pemain1.text = nameData
-        win.text = "$nameData\nMenang"
+        win.text = "$nameData \nMenang"
 
         fun reset() {
             allChoices.map { it.setCardBackgroundColor(Color.WHITE) }
@@ -97,7 +98,7 @@ class MainActivity : AppCompatActivity(), InsertView {
 
         fun playerClick(choice: CardView? = null) {
             reset()
-            choice?.let{
+            choice?.let {
                 activateColor(choice)
                 val suitUser: Suit = when (choice) {
                     rock -> BatuAction()
@@ -106,7 +107,7 @@ class MainActivity : AppCompatActivity(), InsertView {
                 }
                 val suitCom = DataSources.getRandomSuit()
                 handler.removeCallbacksAndMessages(null) //remove postdelayed animation
-                var delay : Long = 0
+                var delay: Long = 0
                 for (i in 0..2) {
                     comChoices.map {
                         handler.postDelayed({
@@ -124,7 +125,11 @@ class MainActivity : AppCompatActivity(), InsertView {
                         "kertas" -> activateColor(paperCom)
                         else -> activateColor(scissorsCom)
                     }
-                    val toastMessage = "CPU Memilih " + suitCom.name.capitalize(Locale.ROOT)
+                    val toastMessage = "CPU Memilih " + suitCom.name.replaceFirstChar {
+                        if (it.isLowerCase()) it.titlecase(
+                            Locale.ROOT
+                        ) else it.toString()
+                    }
                     Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT).show()
                     val result = suitUser.action(suitCom.name)
                     versus.visibility = View.INVISIBLE
@@ -137,24 +142,27 @@ class MainActivity : AppCompatActivity(), InsertView {
             }
         }
 
-        rock.setOnClickListener{
+        rock.setOnClickListener {
             playerClick(rock)
             Toast.makeText(this, "$nameData Memilih Batu", Toast.LENGTH_SHORT).show()
         }
-        paper.setOnClickListener{
+
+        paper.setOnClickListener {
             playerClick(paper)
             Toast.makeText(this, "$nameData Memilih Kertas", Toast.LENGTH_SHORT).show()
         }
-        scissors.setOnClickListener{
-           playerClick(scissors)
-           Toast.makeText(this, "$nameData Memilih Gunting", Toast.LENGTH_SHORT).show()
+
+        scissors.setOnClickListener {
+            playerClick(scissors)
+            Toast.makeText(this, "$nameData Memilih Gunting", Toast.LENGTH_SHORT).show()
         }
-        refresh.setOnClickListener{
+
+        refresh.setOnClickListener {
             playerClick()
             handler.removeCallbacksAndMessages(null) //remove postdelayed animation
 
         }
-        close.setOnClickListener{
+        close.setOnClickListener {
             onBackPressed()
             handler.removeCallbacksAndMessages(null) //remove postdelayed animation
         }
@@ -169,8 +177,5 @@ class MainActivity : AppCompatActivity(), InsertView {
         return this
     }
 
-    override fun onSaveDatabase() {
-        binding.pemain1.text = ""
-        binding.win.text = ""
-    }
+    override fun onSaveDatabase() {}
 }

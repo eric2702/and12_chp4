@@ -15,9 +15,13 @@ import com.example.rockpaperscissors.databinding.ActivityMain2Binding
 import com.example.rockpaperscissors.fragment.WinLoseDialogFragment
 import com.example.rockpaperscissors.model.Player
 import com.example.rockpaperscissors.presenter.*
+import com.example.rockpaperscissors.sources.PlayerDao
+import com.example.rockpaperscissors.sources.PlayerDatabase
 import com.example.rockpaperscissors.view.CheckNameView
 import com.example.rockpaperscissors.view.InsertView
 import com.example.rockpaperscissors.view.UpdateView
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class Main2Activity : AppCompatActivity(), InsertView, CheckNameView, UpdateView {
     private val handler = Handler()
@@ -26,12 +30,22 @@ class Main2Activity : AppCompatActivity(), InsertView, CheckNameView, UpdateView
     private val insertPresenter: InsertPresenter = InsertPresenterImpl(this)
     private val checkNamePresenter: CheckNamePresenter = CheckNamePresenterImpl(this)
     private val updatePresenter: UpdatePresenter = UpdatePresenterImpl(this)
+    private lateinit var dataPlayer: Player
+    private val playerDatabase: PlayerDatabase? by lazy {
+        PlayerDatabase.getInstance(this)
+    }
+    private val playerDao: PlayerDao? by lazy {
+        playerDatabase?.playerDao()
+    }
+    private val nameData: String by lazy {
+        intent.getStringExtra("NAME_DATA").toString()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMain2Binding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+        setContentView(binding.root)
+
         val rock = binding.rock
         val paper = binding.paper
         val scissors = binding.scissors
@@ -49,12 +63,11 @@ class Main2Activity : AppCompatActivity(), InsertView, CheckNameView, UpdateView
 
         val allChoices = listOf(rock, paper, scissors, rock2, paper2, scissors2)
         var comChoices = listOf(rock2, paper2, scissors2)
-        val nameData = intent.getStringExtra("NAME_DATA").toString()
         pemain1.text = nameData
         win.text = "$nameData\nMenang"
         var picked = false
-        var player1pick : Suit? = null
-        var player2pick : String? = null
+        var player1pick: Suit? = null
+        var player2pick: String? = null
         var gameDone = false
 
         fun reset() {
@@ -85,23 +98,30 @@ class Main2Activity : AppCompatActivity(), InsertView, CheckNameView, UpdateView
                 "win" -> {
                     win.visibility = View.VISIBLE
                     bundle.putString("NAME_DATA", nameData)
-                    checkNamePresenter.getPlayerByName(nameData)
-//                    if (checkPlayer != null) {
-//                        checkPlayer.score = checkPlayer.score + 5
-//                        updatePresenter.updateDatabase(checkPlayer)
-//
-//                    } else {
-//                        val newPlayer = Player(
-//                            name = nameData,
-//                            score = 5
-//                        )
-//                        insertPresenter.saveToDatabase(newPlayer)
-//                    }
 
-
-
-
-
+                    GlobalScope.launch {
+                        val player = playerDao?.getPlayerByName(nameData)
+                        runOnUiThread {
+                            if (player != null) {
+                                if (player.id!! > 0) {
+                                    player.score += 5
+                                    updatePresenter.updateDatabase(player)
+                                } else {
+                                    val newPlayer = Player(
+                                        name = nameData,
+                                        score = 5
+                                    )
+                                    insertPresenter.saveToDatabase(newPlayer)
+                                }
+                            } else {
+                                val newPlayer = Player(
+                                    name = nameData,
+                                    score = 5
+                                )
+                                insertPresenter.saveToDatabase(newPlayer)
+                            }
+                        }
+                    }
                 }
                 "lose" -> {
                     lose.visibility = View.VISIBLE
@@ -118,7 +138,7 @@ class Main2Activity : AppCompatActivity(), InsertView, CheckNameView, UpdateView
             }
         }
 
-        fun result(suitPlayer1 : Suit, suitPlayer2 : String) {
+        fun result(suitPlayer1: Suit, suitPlayer2: String) {
             val result = suitPlayer1.action(DataSources.convertStringToData(suitPlayer2).name)
             versus.visibility = View.INVISIBLE
             showMessage(result)
@@ -132,7 +152,7 @@ class Main2Activity : AppCompatActivity(), InsertView, CheckNameView, UpdateView
             if (gameDone || player1pick != null) {
                 return
             }
-            choice.let{
+            choice.let {
                 activateColor(choice)
                 val suitPlayer1: Suit = when (choice) {
                     rock -> BatuAction()
@@ -152,7 +172,7 @@ class Main2Activity : AppCompatActivity(), InsertView, CheckNameView, UpdateView
             if (gameDone || player2pick != null) {
                 return
             }
-            choice?.let{
+            choice?.let {
                 activateColor(choice)
                 val suitUser: String = when (choice) {
                     rock2 -> "batu"
@@ -168,7 +188,7 @@ class Main2Activity : AppCompatActivity(), InsertView, CheckNameView, UpdateView
             }
         }
 
-        rock.setOnClickListener{
+        rock.setOnClickListener {
             if (!gameDone) {
                 if (player1pick == null) {
                     Toast.makeText(this, "$nameData Memilih Batu", Toast.LENGTH_SHORT).show()
@@ -179,7 +199,7 @@ class Main2Activity : AppCompatActivity(), InsertView, CheckNameView, UpdateView
             playerClick(rock)
 
         }
-        paper.setOnClickListener{
+        paper.setOnClickListener {
             if (!gameDone) {
                 if (player1pick == null) {
                     Toast.makeText(this, "$nameData Memilih Kertas", Toast.LENGTH_SHORT).show()
@@ -190,7 +210,7 @@ class Main2Activity : AppCompatActivity(), InsertView, CheckNameView, UpdateView
             playerClick(paper)
 
         }
-        scissors.setOnClickListener{
+        scissors.setOnClickListener {
             if (!gameDone) {
                 if (player1pick == null) {
                     Toast.makeText(this, "$nameData Memilih Gunting", Toast.LENGTH_SHORT).show()
@@ -201,7 +221,7 @@ class Main2Activity : AppCompatActivity(), InsertView, CheckNameView, UpdateView
             playerClick(scissors)
 
         }
-        rock2.setOnClickListener{
+        rock2.setOnClickListener {
             if (!gameDone) {
                 if (player2pick == null) {
                     Toast.makeText(this, "Player 2 Memilih Batu", Toast.LENGTH_SHORT).show()
@@ -212,7 +232,7 @@ class Main2Activity : AppCompatActivity(), InsertView, CheckNameView, UpdateView
             player2Click(rock2)
 
         }
-        paper2.setOnClickListener{
+        paper2.setOnClickListener {
             if (!gameDone) {
                 if (player2pick == null) {
                     Toast.makeText(this, "Player 2 Memilih Kertas", Toast.LENGTH_SHORT).show()
@@ -223,7 +243,7 @@ class Main2Activity : AppCompatActivity(), InsertView, CheckNameView, UpdateView
             player2Click(paper2)
 
         }
-        scissors2.setOnClickListener{
+        scissors2.setOnClickListener {
             if (!gameDone) {
                 if (player2pick == null) {
                     Toast.makeText(this, "Player 2 Memilih Gunting", Toast.LENGTH_SHORT).show()
@@ -233,11 +253,11 @@ class Main2Activity : AppCompatActivity(), InsertView, CheckNameView, UpdateView
             }
             player2Click(scissors2)
         }
-        refresh.setOnClickListener{
+        refresh.setOnClickListener {
             reset()
             handler.removeCallbacksAndMessages(null) //remove postdelayed animation
         }
-        close.setOnClickListener{
+        close.setOnClickListener {
             onBackPressed()
             handler.removeCallbacksAndMessages(null) //remove postdelayed animation
         }
@@ -252,31 +272,16 @@ class Main2Activity : AppCompatActivity(), InsertView, CheckNameView, UpdateView
         return this
     }
 
-    override fun onUpdateDatabase() {
-        binding.pemain1.text = ""
-        binding.win.text = ""
-    }
+    override fun onUpdateDatabase() {}
 
     override fun onCheckDatabase(player: Player) {
-        if (player == null) {
-            Toast.makeText(this, "Awesome Memilih Batu", Toast.LENGTH_SHORT).show()
-        }
-        Toast.makeText(this, "Awesome Memilih aaaa", Toast.LENGTH_SHORT).show()
-
-        player.score = player.score + 5
-//        if (updatePresenter.updateDatabase(player)) {
-//
-//        }
-        updatePresenter.updateDatabase(player)
-
-
-
+        dataPlayer = player
     }
 
-
-
-    override fun onSaveDatabase() {
-        binding.pemain1.text = ""
-        binding.win.text = ""
+    override fun onResume() {
+        super.onResume()
+        checkNamePresenter.getPlayerByName(nameData)
     }
+
+    override fun onSaveDatabase() {}
 }

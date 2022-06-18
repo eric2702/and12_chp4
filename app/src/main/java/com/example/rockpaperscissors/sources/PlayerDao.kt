@@ -1,11 +1,11 @@
 package com.example.rockpaperscissors.sources
 
-import com.example.rockpaperscissors.model.Player
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import androidx.room.Update
-import androidx.room.OnConflictStrategy.REPLACE
+import com.example.rockpaperscissors.model.Player
 
 @Dao
 interface PlayerDao {

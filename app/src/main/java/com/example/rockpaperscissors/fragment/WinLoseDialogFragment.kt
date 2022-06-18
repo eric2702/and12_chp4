@@ -14,7 +14,7 @@ class WinLoseDialogFragment : DialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DialogWinloseBinding.inflate(inflater)
         return binding.root
     }
@@ -23,24 +23,26 @@ class WinLoseDialogFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         val bundle = arguments
         val nameData = bundle!!.getString("NAME_DATA", "")
-        val result = bundle!!.getString("RESULT", "")
-        when (result) {
-            "win" -> binding.hasil.text = nameData + "\nMENANG!"
-            "lose" -> binding.hasil.text = nameData + "\nMENANG!"
+        when (bundle.getString("RESULT", "")) {
+            "win" -> binding.hasil.text = "$nameData\nMENANG!"
+            "lose" -> binding.hasil.text = "$nameData\nMENANG!"
             else -> binding.hasil.text = "SERI!"
         }
 
-        binding.kembaliMenu.setOnClickListener({
+        binding.kembaliMenu.setOnClickListener {
             dismiss()
             activity?.onBackPressed()
-        })
-        binding.mainLagi.setOnClickListener({
+        }
+        binding.mainLagi.setOnClickListener {
             dismiss()
-        })
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog?.window?.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
     }
 }

@@ -24,13 +24,13 @@ class RPSIntro : AppIntro() {
         setIndicatorColor(Color.parseColor("#0070C0"), Color.parseColor("#C3DAE9"))
         setColorSkipButton(Color.parseColor("#0070C0"))
         setColorDoneText(Color.parseColor("#0070C0"))
-        val separator : View = findViewById(com.github.appintro.R.id.bottom_separator)
+        val separator: View = findViewById(com.github.appintro.R.id.bottom_separator)
         separator.setBackgroundColor(Color.parseColor("#ffffff"))
     }
 
     override fun onSkipPressed(currentFragment: Fragment?) {
         super.onSkipPressed(currentFragment)
-        val viewPager : ViewPager = findViewById(com.github.appintro.R.id.view_pager)
+        val viewPager: ViewPager = findViewById(com.github.appintro.R.id.view_pager)
         viewPager.currentItem = 2
     }
 
