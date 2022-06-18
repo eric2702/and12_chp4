@@ -260,14 +260,13 @@ class Main2Activity : AppCompatActivity(), InsertView, CheckNameView, UpdateView
     override fun onCheckDatabase(player: Player) {
         if (player == null) {
             Toast.makeText(this, "Awesome Memilih Batu", Toast.LENGTH_SHORT).show()
-
         }
         Toast.makeText(this, "Awesome Memilih aaaa", Toast.LENGTH_SHORT).show()
 
         player.score = player.score + 5
-        if (updatePresenter.updateDatabase(player)) {
-
-        }
+//        if (updatePresenter.updateDatabase(player)) {
+//
+//        }
         updatePresenter.updateDatabase(player)
 
 
