@@ -1,45 +1,53 @@
 package com.example.rockpaperscissors
 
+import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.rockpaperscissors.adapter.PlayerAdapter
 import com.example.rockpaperscissors.databinding.ActivityLeaderboardBinding
 import com.example.rockpaperscissors.model.Player
+import com.example.rockpaperscissors.presenter.MainPresenter
+import com.example.rockpaperscissors.presenter.MainPresenterImpl
+import com.example.rockpaperscissors.sources.PlayerDatabase
+import com.example.rockpaperscissors.view.MainView
 
-class LeaderboardActivity: AppCompatActivity() {
-    private lateinit var binding: ActivityLeaderboardBinding
+class LeaderboardActivity : AppCompatActivity(), MainView {
 
-    private val playerLists = listOf<Player>(
-        Player(1,"Ucup", 31),
-        Player(2,"Anton", 21),
-        Player(3, "Naruto", 100),
-        Player(4, "Ronaldo", 34),
-        Player(5,"Eric", 20),
-        Player(6, "Sasuke", 100),
-        Player(7, "Tara", 34),
-        Player(8,"Budi", 20),
-        Player(9,"Dimas", 20),
-        Player(10, "Joko", 100),
-        Player(11, "Kezia", 34),
-        Player(12,"Dia", 20),
-    )
+    private var _binding: ActivityLeaderboardBinding? = null
+    private val binding get() = _binding
+    private val leaderBoardAdapter = LeaderboardAdapter()
+    private val mainPresenter: MainPresenter = MainPresenterImpl(this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLeaderboardBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+        _binding = ActivityLeaderboardBinding.inflate(layoutInflater)
+        setContentView(binding?.root)
 
-        val playersRecyclerView: RecyclerView = binding.leadRv
-        val playersLayoutManager = LinearLayoutManager(this)
-        val playerAdapter = PlayerAdapter()
-
-        playersRecyclerView.layoutManager = playersLayoutManager
-        playersRecyclerView.adapter = playerAdapter
-
-        playerAdapter.addList(playerLists)
-
-
+        setupView()
     }
+
+    private fun setupView() = with(binding) {
+        this?.rvLeaderboard?.layoutManager = LinearLayoutManager(context())
+        this?.rvLeaderboard?.adapter = leaderBoardAdapter
+    }
+
+    override fun context(): Context {
+        return this
+    }
+
+    override fun onResultDatabase(players: List<Player>) {
+        leaderBoardAdapter.addList(players)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+        PlayerDatabase.destroyDatabase()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mainPresenter.getLeaderBoard()
+    }
+
 }

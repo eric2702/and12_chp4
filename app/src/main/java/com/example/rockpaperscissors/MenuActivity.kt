@@ -1,5 +1,6 @@
 package com.example.rockpaperscissors
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -18,28 +19,28 @@ class MenuActivity : AppCompatActivity() {
         val nameData = intent.getStringExtra("NAME_DATA").toString()
         setMenuName(nameData)
 
-        val message = "Selamat Datang " + nameData
+        val message = "Selamat Datang $nameData"
         val snackbar = Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG)
         snackbar.setActionTextColor(Color.parseColor("#ff0000"))
         snackbar.setAction("Tutup") {
             snackbar.dismiss()
         }
         snackbar.show()
-        binding.comMenuImg.setOnClickListener({
+        binding.comMenuImg.setOnClickListener {
             launchToMain()
-        })
-        binding.comMenuTxt.setOnClickListener({
+        }
+        binding.comMenuTxt.setOnClickListener {
             launchToMain()
-        })
-        binding.pemainMenuImg.setOnClickListener({
+        }
+        binding.pemainMenuImg.setOnClickListener {
             launchToMain2()
-        })
-        binding.pemainMenuTxt.setOnClickListener({
+        }
+        binding.pemainMenuTxt.setOnClickListener {
             launchToMain2()
-        })
-        binding.btnLead.setOnClickListener({
+        }
+        binding.btnLead.setOnClickListener {
             launchToLeaderboard()
-        })
+        }
     }
 
     private fun launchToMain() {
@@ -59,10 +60,9 @@ class MenuActivity : AppCompatActivity() {
         startActivity(leadIntent)
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setMenuName(nameData: String) {
-        val pemain_txt = binding.pemainMenuTxt
-        val com_txt = binding.comMenuTxt
-        pemain_txt.setText(nameData + " VS Pemain")
-        com_txt.setText(nameData + " VS CPU")
+        binding.pemainMenuTxt.text = "$nameData VS Pemain"
+        binding.comMenuTxt.text = "$nameData VS CPU"
     }
 }
