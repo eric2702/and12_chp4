@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="@string/please_chose_your_avatar_player_two"
+        android:text="@string/please_chose_your_avatar_player_one"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/iv_icon_two3"
         app:layout_constraintEnd_toEndOf="parent"
@@ -82,13 +82,13 @@
         android:gravity="center"
         android:text="@string/input_your_name"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/edt_name_player2"
+        app:layout_constraintBottom_toTopOf="@id/edt_name_player1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_icon_five3" />
 
     <EditText
-        android:id="@+id/edt_name_player2"
+        android:id="@+id/edt_name_player1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -108,6 +108,6 @@
         android:text="@string/submit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edt_name_player2" />
+        app:layout_constraintTop_toBottomOf="@+id/edt_name_player1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

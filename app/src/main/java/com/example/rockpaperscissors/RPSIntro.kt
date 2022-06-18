@@ -41,9 +41,9 @@ class RPSIntro : AppIntro() {
 
     private fun launchToMenu() {
         val menuIntent = Intent(this, MenuActivity::class.java)
-        val name = findViewById<EditText>(R.id.edt_name_player2).text.toString().trim()
+        val name = findViewById<EditText>(R.id.edt_name_player1).text.toString().trim()
         if (name == "") {
-            Toast.makeText(this, "Masukkan Nama", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Masukkan Kedua Nama", Toast.LENGTH_SHORT).show()
         } else {
             menuIntent.putExtra("NAME_DATA", name)
             startActivity(menuIntent)
