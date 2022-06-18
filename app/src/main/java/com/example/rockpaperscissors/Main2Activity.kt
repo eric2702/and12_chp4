@@ -14,15 +14,18 @@ import com.example.rockpaperscissors.action.KertasAction
 import com.example.rockpaperscissors.databinding.ActivityMain2Binding
 import com.example.rockpaperscissors.fragment.WinLoseDialogFragment
 import com.example.rockpaperscissors.model.Player
-import com.example.rockpaperscissors.presenter.InsertPresenter
-import com.example.rockpaperscissors.presenter.InsertPresenterImpl
+import com.example.rockpaperscissors.presenter.*
+import com.example.rockpaperscissors.view.CheckNameView
 import com.example.rockpaperscissors.view.InsertView
+import com.example.rockpaperscissors.view.UpdateView
 
-class Main2Activity : AppCompatActivity(), InsertView {
+class Main2Activity : AppCompatActivity(), InsertView, CheckNameView, UpdateView {
     private val handler = Handler()
     private var _binding: ActivityMain2Binding? = null
     private lateinit var binding: ActivityMain2Binding
     private val insertPresenter: InsertPresenter = InsertPresenterImpl(this)
+    private val checkNamePresenter: CheckNamePresenter = CheckNamePresenterImpl(this)
+    private val updatePresenter: UpdatePresenter = UpdatePresenterImpl(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,11 +85,22 @@ class Main2Activity : AppCompatActivity(), InsertView {
                 "win" -> {
                     win.visibility = View.VISIBLE
                     bundle.putString("NAME_DATA", nameData)
-                    val newPlayer = Player(
-                        name = nameData,
-                        score = 5
-                    )
-                    insertPresenter.saveToDatabase(newPlayer)
+                    checkNamePresenter.getPlayerByName(nameData)
+//                    if (checkPlayer != null) {
+//                        checkPlayer.score = checkPlayer.score + 5
+//                        updatePresenter.updateDatabase(checkPlayer)
+//
+//                    } else {
+//                        val newPlayer = Player(
+//                            name = nameData,
+//                            score = 5
+//                        )
+//                        insertPresenter.saveToDatabase(newPlayer)
+//                    }
+
+
+
+
 
                 }
                 "lose" -> {
@@ -237,6 +251,30 @@ class Main2Activity : AppCompatActivity(), InsertView {
     override fun context(): Context {
         return this
     }
+
+    override fun onUpdateDatabase() {
+        binding.pemain1.text = ""
+        binding.win.text = ""
+    }
+
+    override fun onCheckDatabase(player: Player) {
+        if (player == null) {
+            Toast.makeText(this, "Awesome Memilih Batu", Toast.LENGTH_SHORT).show()
+
+        }
+        Toast.makeText(this, "Awesome Memilih aaaa", Toast.LENGTH_SHORT).show()
+
+        player.score = player.score + 5
+        if (updatePresenter.updateDatabase(player)) {
+
+        }
+        updatePresenter.updateDatabase(player)
+
+
+
+    }
+
+
 
     override fun onSaveDatabase() {
         binding.pemain1.text = ""

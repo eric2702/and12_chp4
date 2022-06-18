@@ -13,5 +13,5 @@ data class Player (
     val name: String,
 
     @ColumnInfo(name = "score")
-    val score: Int,
+    var score: Int,
 )
