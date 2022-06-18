@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="5dp"
     android:orientation="vertical"
     app:cardCornerRadius="10dp"
-    app:cardElevation="10dp"
-    android:layout_margin="5dp">
+    app:cardElevation="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
             android:id="@+id/iv_icon_notification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="Icon player"
+            android:contentDescription="@string/icon_player"
             android:src="@drawable/ic_round_account_circle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -28,10 +28,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Player name"
+            android:text="@string/player_name"
             android:textColor="@color/black"
-            android:textStyle="bold"
             android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@id/iv_icon_notification"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Score"
+            android:text="@string/score"
             android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"

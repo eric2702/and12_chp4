@@ -6,14 +6,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.rockpaperscissors.databinding.ItemLeaderboardBinding
 import com.example.rockpaperscissors.model.Player
 
-class LeaderboardAdapter(private val listPlayer: List<Player>)
-    :RecyclerView.Adapter<LeaderboardAdapter.LeaderBoardViewHolder>() {
+class LeaderboardAdapter : RecyclerView.Adapter<LeaderboardAdapter.LeaderBoardViewHolder>() {
 
-    class LeaderBoardViewHolder(private val binding: ItemLeaderboardBinding)
-        : RecyclerView.ViewHolder(binding.root) {
+    private val listPlayer: MutableList<Player> = mutableListOf()
+
+    fun addList(players: List<Player>) {
+        listPlayer.clear()
+        listPlayer.addAll(players)
+        notifyDataSetChanged()
+    }
+
+    class LeaderBoardViewHolder(private val binding: ItemLeaderboardBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(player: Player) = with(binding) {
             itemTvName.text = player.name
-            itemTvScore.text = player.score.toString()
+            itemTvScore.text = "Score ${player.score}"
         }
     }
 
