@@ -13,6 +13,7 @@ class LeaderboardAdapter : RecyclerView.Adapter<LeaderboardAdapter.LeaderBoardVi
     fun addList(players: List<Player>) {
         listPlayer.clear()
         listPlayer.addAll(players)
+        sortPlayerByScore()
         notifyDataSetChanged()
     }
 
@@ -36,6 +37,10 @@ class LeaderboardAdapter : RecyclerView.Adapter<LeaderboardAdapter.LeaderBoardVi
 
     override fun onBindViewHolder(holder: LeaderBoardViewHolder, position: Int) {
         return holder.bind(listPlayer[position])
+    }
+
+    private fun sortPlayerByScore() {
+        listPlayer.sortByDescending { it.score }
     }
 
     override fun getItemCount(): Int = if (listPlayer.size > 5) 5 else listPlayer.size

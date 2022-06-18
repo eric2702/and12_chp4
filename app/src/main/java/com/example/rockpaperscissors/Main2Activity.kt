@@ -262,13 +262,10 @@ class Main2Activity : AppCompatActivity(), InsertView, CheckNameView, UpdateView
 
     override fun onCheckDatabase(player: List<Player>) {
         if (player.size > 0) {
-            Toast.makeText(this, "${player[0].score}", Toast.LENGTH_SHORT).show()
-
             player[0].score = player[0].score + 5
             updatePresenter.updateDatabase(player[0])
 
         } else {
-            Toast.makeText(this, "Here", Toast.LENGTH_SHORT).show()
             val newPlayer = Player(name=globalName, score=5)
             Toast.makeText(this, "$globalName", Toast.LENGTH_SHORT).show()
 
