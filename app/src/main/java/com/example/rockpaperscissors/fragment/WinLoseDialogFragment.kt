@@ -37,7 +37,7 @@ class WinLoseDialogFragment : DialogFragment() {
         }
         binding?.mainLagi?.setOnClickListener {
             dismiss()
-        }
+        })
     }
 
     override fun onResume() {

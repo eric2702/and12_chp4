@@ -44,7 +44,7 @@ class RPSIntro : AppIntro() {
 
     override fun onSkipPressed(currentFragment: Fragment?) {
         super.onSkipPressed(currentFragment)
-        val viewPager: ViewPager = findViewById(com.github.appintro.R.id.view_pager)
+        val viewPager : ViewPager = findViewById(com.github.appintro.R.id.view_pager)
         viewPager.currentItem = 2
     }
 
