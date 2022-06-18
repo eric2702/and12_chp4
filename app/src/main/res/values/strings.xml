@@ -28,4 +28,5 @@
     <string name="enter">Enter</string>
     <string name="please_chose_your_avatar_player_two">Please Chose Your Avatar Player Two</string>
     <string name="please_chose_your_avatar_for_computer">Please Chose Your Avatar For Computer</string>
+    <string name="no_leaderboard_data">Leaderboard is empty. No Match Found</string>
 </resources>

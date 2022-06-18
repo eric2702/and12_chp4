@@ -20,7 +20,7 @@ class LeaderboardAdapter : RecyclerView.Adapter<LeaderboardAdapter.LeaderBoardVi
         RecyclerView.ViewHolder(binding.root) {
         fun bind(player: Player) = with(binding) {
             itemTvName.text = player.name
-            itemTvScore.text = "Score ${player.score}"
+            itemTvScore.text = "Score : ${player.score}"
         }
     }
 
