@@ -1,50 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fr_lp1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white">
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        android:weightSum="1.0"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <TextView
+        android:id="@+id/tv_select_oponent3"
+        android:layout_width="138dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="@string/please_chose_your_avatar_player_two"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/iv_icon_two3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.6"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.6"
-        android:gravity="center">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.5"
-            android:src="@drawable/img_lp1" />
+    <ImageView
+        android:id="@+id/iv_icon_player3"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/iv_icon_two3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_select_oponent3"
+        app:srcCompat="@drawable/img_batu"
+        tools:ignore="ContentDescription" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.15"
-            android:autoSizeTextType="uniform"
-            android:gravity="center_horizontal"
-            android:text="Bermain suit melawan sesama pemain."
-            android:textColor="@color/black"
-            android:textStyle="bold" />
+    <ImageView
+        android:id="@+id/iv_icon_two3"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="@id/iv_icon_three3"
+        app:layout_constraintStart_toStartOf="@+id/iv_icon_player3"
+        app:layout_constraintTop_toBottomOf="@+id/tv_select_oponent3"
+        app:srcCompat="@drawable/img_gunting"
+        tools:ignore="ContentDescription" />
 
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/iv_icon_three3"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_icon_two3"
+        app:layout_constraintTop_toBottomOf="@+id/tv_select_oponent3"
+        app:srcCompat="@drawable/img_kertas"
+        tools:ignore="ContentDescription" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
+    <ImageView
+        android:id="@+id/iv_icon_four3"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_input_name_player2"
+        app:layout_constraintEnd_toEndOf="@+id/iv_icon_two3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_icon_two3"
+        app:srcCompat="@drawable/img_lp3"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/iv_icon_five3"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_input_name_player2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_icon_four3"
+        app:layout_constraintTop_toBottomOf="@+id/iv_icon_two3"
+        app:srcCompat="@drawable/img_lp1"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/tv_input_name_player2"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/input_your_name"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/edt_name_player2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_icon_five3" />
+
+    <EditText
+        android:id="@+id/edt_name_player2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.05" />
-    <androidx.constraintlayout.widget.Guideline
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="@string/input_your_name"
+        app:layout_constraintBottom_toTopOf="@id/btn_ok2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_input_name_player2"
+        tools:ignore="Autofill,TextFields" />
+
+    <Button
+        android:id="@+id/btn_ok2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5" />
+        android:layout_marginTop="10dp"
+        android:text="@string/submit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edt_name_player2" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

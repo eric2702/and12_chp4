@@ -1,6 +1,6 @@
 package com.example.rockpaperscissors
 
-import android.app.Dialog
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
@@ -13,11 +13,17 @@ import com.example.rockpaperscissors.action.GuntingAction
 import com.example.rockpaperscissors.action.KertasAction
 import com.example.rockpaperscissors.databinding.ActivityMainBinding
 import com.example.rockpaperscissors.fragment.WinLoseDialogFragment
+import com.example.rockpaperscissors.model.Player
+import com.example.rockpaperscissors.presenter.InsertPresenter
+import com.example.rockpaperscissors.presenter.InsertPresenterImpl
+import com.example.rockpaperscissors.view.InsertView
+import java.util.*
 
-
-private lateinit var binding: ActivityMainBinding
-class MainActivity : AppCompatActivity() {
-    val handler = Handler()
+class MainActivity : AppCompatActivity(), InsertView {
+    private val handler = Handler()
+    private var _binding: ActivityMainBinding? = null
+    private lateinit var binding: ActivityMainBinding
+    private val insertPresenter: InsertPresenter = InsertPresenterImpl(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,21 +44,18 @@ class MainActivity : AppCompatActivity() {
         val close = binding.close
         val pemain1 = binding.pemain1
 
-        var allChoices = listOf<CardView>(rock, paper, scissors, rockCom, paperCom, scissorsCom)
-        var comChoices = listOf<CardView>(rockCom, paperCom, scissorsCom)
+        val allChoices = listOf(rock, paper, scissors, rockCom, paperCom, scissorsCom)
+        val comChoices = listOf(rockCom, paperCom, scissorsCom)
         val nameData = intent.getStringExtra("NAME_DATA").toString()
         pemain1.text = nameData
-        win.text = nameData + "\nMenang"
-
-
-
+        win.text = "$nameData\nMenang"
 
         fun reset() {
             allChoices.map { it.setCardBackgroundColor(Color.WHITE) }
-            versus.setVisibility(View.VISIBLE)
-            win.setVisibility(View.INVISIBLE)
-            lose.setVisibility(View.INVISIBLE)
-            draw.setVisibility(View.INVISIBLE)
+            versus.visibility = View.VISIBLE
+            win.visibility = View.INVISIBLE
+            lose.visibility = View.INVISIBLE
+            draw.visibility = View.INVISIBLE
         }
 
         fun activateColor(choice: CardView) {
@@ -63,24 +66,31 @@ class MainActivity : AppCompatActivity() {
             choice.setCardBackgroundColor(Color.parseColor("#FFFFFF"))
         }
 
-
-
         val dialogWinLoseFragment = WinLoseDialogFragment()
         val bundle = Bundle()
 
         fun showMessage(condition: String) {
             when (condition) {
                 "win" -> {
-                    win.setVisibility(View.VISIBLE)
+                    win.visibility = View.VISIBLE
                     bundle.putString("NAME_DATA", nameData)
-
+                    val newPlayer = Player(
+                        name = nameData,
+                        score = 5
+                    )
+                    insertPresenter.saveToDatabase(newPlayer)
                 }
                 "lose" -> {
-                    lose.setVisibility(View.VISIBLE)
+                    lose.visibility = View.VISIBLE
                     bundle.putString("NAME_DATA", "CPU")
+                    val newPlayer = Player(
+                        name = "CPU",
+                        score = 5
+                    )
+                    insertPresenter.saveToDatabase(newPlayer)
                 }
                 else -> {
-                    draw.setVisibility(View.VISIBLE)
+                    draw.visibility = View.VISIBLE
                 }
             }
         }
@@ -95,14 +105,14 @@ class MainActivity : AppCompatActivity() {
                     else -> GuntingAction()
                 }
                 val suitCom = DataSources.getRandomSuit()
-                handler.removeCallbacksAndMessages(null); //remove postdelayed animation
+                handler.removeCallbacksAndMessages(null) //remove postdelayed animation
                 var delay : Long = 0
                 for (i in 0..2) {
                     comChoices.map {
                         handler.postDelayed({
                             activateColor(it)
                         }, delay)
-                        delay = delay + 500
+                        delay += 500
                         handler.postDelayed({
                             disableColor(it)
                         }, delay)
@@ -114,50 +124,53 @@ class MainActivity : AppCompatActivity() {
                         "kertas" -> activateColor(paperCom)
                         else -> activateColor(scissorsCom)
                     }
-                    val toastMessage = "CPU Memilih " + suitCom.name.capitalize()
+                    val toastMessage = "CPU Memilih " + suitCom.name.capitalize(Locale.ROOT)
                     Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT).show()
-                    var result = suitUser.action(suitCom.name)
-                    versus.setVisibility(View.INVISIBLE)
+                    val result = suitUser.action(suitCom.name)
+                    versus.visibility = View.INVISIBLE
                     showMessage(result)
 
                     bundle.putString("RESULT", result)
-                    dialogWinLoseFragment.setArguments(bundle)
+                    dialogWinLoseFragment.arguments = bundle
                     dialogWinLoseFragment.show(supportFragmentManager, null)
                 }, delay)
-
-//                Toast.makeText(applicationContext, result, Toast.LENGTH_SHORT).show()
             }
         }
 
-
-
-
-
         rock.setOnClickListener{
             playerClick(rock)
-            Toast.makeText(this, nameData + " Memilih Batu", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "$nameData Memilih Batu", Toast.LENGTH_SHORT).show()
         }
         paper.setOnClickListener{
             playerClick(paper)
-            Toast.makeText(this, nameData + " Memilih Kertas", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "$nameData Memilih Kertas", Toast.LENGTH_SHORT).show()
         }
         scissors.setOnClickListener{
            playerClick(scissors)
-           Toast.makeText(this, nameData + " Memilih Gunting", Toast.LENGTH_SHORT).show()
+           Toast.makeText(this, "$nameData Memilih Gunting", Toast.LENGTH_SHORT).show()
         }
         refresh.setOnClickListener{
             playerClick()
-            handler.removeCallbacksAndMessages(null); //remove postdelayed animation
+            handler.removeCallbacksAndMessages(null) //remove postdelayed animation
 
         }
         close.setOnClickListener{
             onBackPressed()
-            handler.removeCallbacksAndMessages(null); //remove postdelayed animation
+            handler.removeCallbacksAndMessages(null) //remove postdelayed animation
         }
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
-        handler.removeCallbacksAndMessages(null); //remove postdelayed animation
+        handler.removeCallbacksAndMessages(null) //remove postdelayed animation
+    }
+
+    override fun context(): Context {
+        return this
+    }
+
+    override fun onSaveDatabase() {
+        binding.pemain1.text = ""
+        binding.win.text = ""
     }
 }

@@ -2,4 +2,30 @@
     <string name="app_name">RockPaperScissors</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="score">Score</string>
+    <string name="player_name">Player name</string>
+    <string name="icon_player">Icon player</string>
+    <string name="leaderboard">LEADERBOARD</string>
+    <string name="kertas">Kertas</string>
+    <string name="gunting">Gunting</string>
+    <string name="batu">Batu</string>
+    <string name="vs">VS</string>
+    <string name="com_n_menang">COM\n Menang</string>
+    <string name="draw">DRAW</string>
+    <string name="pemain_1">Pemain 1</string>
+    <string name="com">COM</string>
+    <string name="pemain_2_nmenang">Pemain 2\nMenang</string>
+    <string name="pemain_2">Pemain 2</string>
+    <string name="pilih_lawanmu">PILIH LAWANMU</string>
+    <string name="hasil_permainan">Hasil Permainan</string>
+    <string name="ervin_n_menang">Ervin\n MENANG!</string>
+    <string name="main_lagi">Main Lagi</string>
+    <string name="kembali_ke_menu">Kembali Ke Menu</string>
+    <string name="please_chose_your_avatar_player_one">Please Chose Your Avatar Player One</string>
+    <string name="input_your_name">Input Your Name</string>
+    <string name="submit">Submit</string>
+    <string name="pilih_permainan">Pilih Permainan</string>
+    <string name="enter">Enter</string>
+    <string name="please_chose_your_avatar_player_two">Please Chose Your Avatar Player Two</string>
+    <string name="please_chose_your_avatar_for_computer">Please Chose Your Avatar For Computer</string>
 </resources>

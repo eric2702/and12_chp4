@@ -11,10 +11,10 @@
         android:theme="@style/Theme.RockPaperScissors">
         <activity
             android:name=".SplashActivity"
+            android:theme="@style/Theme.RockPaperScissors.NoActionBar"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -22,6 +22,8 @@
         <activity android:name=".MenuActivity"/>
         <activity android:name=".MainActivity"/>
         <activity android:name=".Main2Activity"/>
+        <activity android:name=".LeaderboardActivity"/>
+
     </application>
 
 </manifest>

@@ -7,11 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.rockpaperscissors.R
 
-class Slide1Fragment : Fragment() {
+class Slide4Fragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_slide1, container, false)
+        return inflater.inflate(R.layout.fragment_slide4, container, false)
     }
 }

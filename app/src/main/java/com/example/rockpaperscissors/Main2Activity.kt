@@ -1,5 +1,6 @@
 package com.example.rockpaperscissors
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
@@ -12,11 +13,21 @@ import com.example.rockpaperscissors.action.GuntingAction
 import com.example.rockpaperscissors.action.KertasAction
 import com.example.rockpaperscissors.databinding.ActivityMain2Binding
 import com.example.rockpaperscissors.fragment.WinLoseDialogFragment
+import com.example.rockpaperscissors.model.Player
+import com.example.rockpaperscissors.presenter.*
+import com.example.rockpaperscissors.view.CheckNameView
+import com.example.rockpaperscissors.view.InsertView
+import com.example.rockpaperscissors.view.UpdateView
 
-
-private lateinit var binding: ActivityMain2Binding
-class Main2Activity : AppCompatActivity() {
-    val handler = Handler()
+class Main2Activity : AppCompatActivity(), InsertView, CheckNameView, UpdateView {
+    private val handler = Handler()
+    private var _binding: ActivityMain2Binding? = null
+    private lateinit var binding: ActivityMain2Binding
+    private val insertPresenter: InsertPresenter = InsertPresenterImpl(this)
+    private val checkNamePresenter: CheckNamePresenter = CheckNamePresenterImpl(this)
+    private val updatePresenter: UpdatePresenter = UpdatePresenterImpl(this)
+    lateinit var checkPlayer: Player
+    lateinit var globalName: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,18 +49,15 @@ class Main2Activity : AppCompatActivity() {
         val close = binding.close
         val pemain1 = binding.pemain1
 
-        var allChoices = listOf<CardView>(rock, paper, scissors, rock2, paper2, scissors2)
-        var comChoices = listOf<CardView>(rock2, paper2, scissors2)
+        val allChoices = listOf(rock, paper, scissors, rock2, paper2, scissors2)
+        var comChoices = listOf(rock2, paper2, scissors2)
         val nameData = intent.getStringExtra("NAME_DATA").toString()
         pemain1.text = nameData
-        win.text = nameData + "\nMenang"
+        win.text = "$nameData\nMenang"
         var picked = false
         var player1pick : Suit? = null
         var player2pick : String? = null
         var gameDone = false
-
-
-
 
         fun reset() {
             gameDone = false
@@ -57,10 +65,10 @@ class Main2Activity : AppCompatActivity() {
             player2pick = null
             picked = false
             allChoices.map { it.setCardBackgroundColor(Color.WHITE) }
-            versus.setVisibility(View.VISIBLE)
-            win.setVisibility(View.INVISIBLE)
-            lose.setVisibility(View.INVISIBLE)
-            draw.setVisibility(View.INVISIBLE)
+            versus.visibility = View.VISIBLE
+            win.visibility = View.INVISIBLE
+            lose.visibility = View.INVISIBLE
+            draw.visibility = View.INVISIBLE
         }
 
         fun activateColor(choice: CardView) {
@@ -71,34 +79,54 @@ class Main2Activity : AppCompatActivity() {
             choice.setCardBackgroundColor(Color.parseColor("#FFFFFF"))
         }
 
-
-
         val dialogWinLoseFragment = WinLoseDialogFragment()
         val bundle = Bundle()
 
         fun showMessage(condition: String) {
             when (condition) {
                 "win" -> {
-                    win.setVisibility(View.VISIBLE)
+                    win.visibility = View.VISIBLE
                     bundle.putString("NAME_DATA", nameData)
+                    globalName = nameData
+                    checkNamePresenter.getPlayerByName(nameData)
+//                    if (checkPlayer != null) {
+//                        checkPlayer.score = checkPlayer.score + 5
+//                        updatePresenter.updateDatabase(checkPlayer)
+//
+//                    } else {
+//                        val newPlayer = Player(
+//                            name = nameData,
+//                            score = 5
+//                        )
+//                        insertPresenter.saveToDatabase(newPlayer)
+//                    }
+
+
+
+
 
                 }
                 "lose" -> {
-                    lose.setVisibility(View.VISIBLE)
+                    lose.visibility = View.VISIBLE
                     bundle.putString("NAME_DATA", "Pemain 2")
+                    val newPlayer = Player(
+                        name = "Pemain 2",
+                        score = 5
+                    )
+                    insertPresenter.saveToDatabase(newPlayer)
                 }
                 else -> {
-                    draw.setVisibility(View.VISIBLE)
+                    draw.visibility = View.VISIBLE
                 }
             }
         }
 
         fun result(suitPlayer1 : Suit, suitPlayer2 : String) {
-            var result = suitPlayer1.action(DataSources.convertStringToData(suitPlayer2).name)
-            versus.setVisibility(View.INVISIBLE)
+            val result = suitPlayer1.action(DataSources.convertStringToData(suitPlayer2).name)
+            versus.visibility = View.INVISIBLE
             showMessage(result)
             bundle.putString("RESULT", result)
-            dialogWinLoseFragment.setArguments(bundle)
+            dialogWinLoseFragment.arguments = bundle
             dialogWinLoseFragment.show(supportFragmentManager, null)
             gameDone = true
         }
@@ -107,7 +135,7 @@ class Main2Activity : AppCompatActivity() {
             if (gameDone || player1pick != null) {
                 return
             }
-            choice?.let{
+            choice.let{
                 activateColor(choice)
                 val suitPlayer1: Suit = when (choice) {
                     rock -> BatuAction()
@@ -143,16 +171,10 @@ class Main2Activity : AppCompatActivity() {
             }
         }
 
-
-
-
-
-
-
         rock.setOnClickListener{
             if (!gameDone) {
                 if (player1pick == null) {
-                    Toast.makeText(this, nameData + " Memilih Batu", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "$nameData Memilih Batu", Toast.LENGTH_SHORT).show()
                 }
             } else {
                 Toast.makeText(this, "Tekan Reset Dulu!", Toast.LENGTH_SHORT).show()
@@ -163,7 +185,7 @@ class Main2Activity : AppCompatActivity() {
         paper.setOnClickListener{
             if (!gameDone) {
                 if (player1pick == null) {
-                    Toast.makeText(this, nameData + " Memilih Kertas", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "$nameData Memilih Kertas", Toast.LENGTH_SHORT).show()
                 }
             } else {
                 Toast.makeText(this, "Tekan Reset Dulu!", Toast.LENGTH_SHORT).show()
@@ -174,7 +196,7 @@ class Main2Activity : AppCompatActivity() {
         scissors.setOnClickListener{
             if (!gameDone) {
                 if (player1pick == null) {
-                    Toast.makeText(this, nameData + " Memilih Gunting", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "$nameData Memilih Gunting", Toast.LENGTH_SHORT).show()
                 }
             } else {
                 Toast.makeText(this, "Tekan Reset Dulu!", Toast.LENGTH_SHORT).show()
@@ -216,16 +238,56 @@ class Main2Activity : AppCompatActivity() {
         }
         refresh.setOnClickListener{
             reset()
-            handler.removeCallbacksAndMessages(null); //remove postdelayed animation
+            handler.removeCallbacksAndMessages(null) //remove postdelayed animation
         }
         close.setOnClickListener{
             onBackPressed()
-            handler.removeCallbacksAndMessages(null); //remove postdelayed animation
+            handler.removeCallbacksAndMessages(null) //remove postdelayed animation
         }
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
-        handler.removeCallbacksAndMessages(null); //remove postdelayed animation
+        handler.removeCallbacksAndMessages(null) //remove postdelayed animation
+    }
+
+    override fun context(): Context {
+        return this
+    }
+
+    override fun onUpdateDatabase() {
+        binding.pemain1.text = ""
+        binding.win.text = ""
+    }
+
+    override fun onCheckDatabase(player: List<Player>) {
+        if (player.size > 0) {
+            Toast.makeText(this, "${player[0].score}", Toast.LENGTH_SHORT).show()
+
+            player[0].score = player[0].score + 5
+            updatePresenter.updateDatabase(player[0])
+
+        } else {
+            Toast.makeText(this, "Here", Toast.LENGTH_SHORT).show()
+            val newPlayer = Player(name=globalName, score=5)
+            Toast.makeText(this, "$globalName", Toast.LENGTH_SHORT).show()
+
+            insertNewPlayer(newPlayer)
+
+
+        }
+
+
+    }
+
+    fun insertNewPlayer(player: Player) {
+        insertPresenter.saveToDatabase(player)
+    }
+
+
+
+    override fun onSaveDatabase() {
+        binding.pemain1.text = ""
+        binding.win.text = ""
     }
 }
