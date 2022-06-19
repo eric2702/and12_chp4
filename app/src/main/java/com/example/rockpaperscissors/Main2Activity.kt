@@ -100,7 +100,7 @@ class Main2Activity : AppCompatActivity(), InsertView, CheckNameView, UpdateView
                     bundle.putString("NAME_DATA", nameData)
 
                     GlobalScope.launch {
-                        val player = playerDao?.getPlayerByName(nameData)
+                        val player = playerDao?.getPlayerByName(nameData)?.first()
                         runOnUiThread {
                             if (player != null) {
                                 if (player.id!! > 0) {
@@ -109,14 +109,16 @@ class Main2Activity : AppCompatActivity(), InsertView, CheckNameView, UpdateView
                                 } else {
                                     val newPlayer = Player(
                                         name = nameData,
-                                        score = 5
+                                        score = 5,
+                                        avatar = R.drawable.pngwing
                                     )
                                     insertPresenter.saveToDatabase(newPlayer)
                                 }
                             } else {
                                 val newPlayer = Player(
                                     name = nameData,
-                                    score = 5
+                                    score = 5,
+                                    avatar = R.drawable.pngwing
                                 )
                                 insertPresenter.saveToDatabase(newPlayer)
                             }
@@ -128,7 +130,8 @@ class Main2Activity : AppCompatActivity(), InsertView, CheckNameView, UpdateView
                     bundle.putString("NAME_DATA", "Pemain 2")
                     val newPlayer = Player(
                         name = "Pemain 2",
-                        score = 5
+                        score = 5,
+                        avatar = R.drawable.pngwing
                     )
                     insertPresenter.saveToDatabase(newPlayer)
                 }
@@ -274,8 +277,8 @@ class Main2Activity : AppCompatActivity(), InsertView, CheckNameView, UpdateView
 
     override fun onUpdateDatabase() {}
 
-    override fun onCheckDatabase(player: Player) {
-        dataPlayer = player
+    override fun onCheckDatabase(player: List<Player>) {
+        dataPlayer = player.first()
     }
 
     override fun onResume() {
