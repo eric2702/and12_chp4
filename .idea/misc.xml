@@ -15,10 +15,8 @@
         <entry key="..\:/Users/USER/Desktop/Binar/CHAPTER 4/RockPaperScissors/app/src/main/res/layout/activity_splash.xml" value="0.15" />
         <entry key="..\:/Users/USER/Desktop/Binar/CHAPTER 4/RockPaperScissors/app/src/main/res/layout/dialog_winlose.xml" value="0.33" />
         <entry key="..\:/Users/USER/Desktop/Binar/CHAPTER 4/RockPaperScissors/app/src/main/res/layout/fragment_slide1.xml" value="0.21" />
-        <entry key="..\:/Users/USER/Desktop/Binar/CHAPTER 4/RockPaperScissors/app/src/main/res/layout/fragment_slide2.xml" value="0.2" />
+        <entry key="..\:/Users/USER/Desktop/Binar/CHAPTER 4/RockPaperScissors/app/src/main/res/layout/fragment_slide2.xml" value="0.5" />
         <entry key="..\:/Users/USER/Desktop/Binar/CHAPTER 4/RockPaperScissors/app/src/main/res/layout/fragment_slide3.xml" value="0.25" />
-        <entry key="..\:/Users/USER/Desktop/Binar/CHAPTER 4/RockPaperScissors/app/src/main/res/layout/fragment_slide4.xml" value="0.30085470085470084" />
-        <entry key="..\:/Users/USER/Desktop/Binar/CHAPTER 4/RockPaperScissors/app/src/main/res/layout/item_player.xml" value="0.30085470085470084" />
         <entry key="..\:/Users/USER/Desktop/Binar/CHAPTER 4/RockPaperScissors/app/src/main/res/layout/item_players.xml" value="0.2" />
         <entry key="..\:/and12_chp4/app/src/main/res/layout/activity_main.xml" value="0.18541666666666667" />
         <entry key="..\:/and12_chp4/app/src/main/res/layout/activity_menu.xml" value="0.1693840579710145" />
@@ -27,17 +25,21 @@
         <entry key="..\:/and12_chp4/app/src/main/res/layout/fragment_slide3.xml" value="0.1693840579710145" />
         <entry key="..\:/and12_chp4/app/src/main/res/layout/fragment_slide4.xml" value="0.18541666666666667" />
         <entry key="..\:/and12_chp4/app/src/main/res/layout/leaderboard.xml" value="0.17135416666666667" />
+        <entry key="app/src/main/res/drawable/background_selected.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/background_transparant.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/background_unselect.xml" value="0.2405" />
         <entry key="app/src/main/res/layout/activity_leaderboard.xml" value="0.34049072265625" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.14372406005859376" />
         <entry key="app/src/main/res/layout/activity_main2.xml" value="0.281878662109375" />
         <entry key="app/src/main/res/layout/activity_menu.xml" value="0.29973754882812503" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.1" />
         <entry key="app/src/main/res/layout/dialog_winlose.xml" value="0.1548355102539062" />
-        <entry key="app/src/main/res/layout/fragment_slide1.xml" value="0.4717971801757813" />
-        <entry key="app/src/main/res/layout/fragment_slide2.xml" value="0.5226211547851564" />
-        <entry key="app/src/main/res/layout/fragment_slide3.xml" value="0.34968872070312507" />
+        <entry key="app/src/main/res/layout/fragment_slide1.xml" value="0.15277099609375" />
+        <entry key="app/src/main/res/layout/fragment_slide2.xml" value="0.196746826171875" />
+        <entry key="app/src/main/res/layout/fragment_slide3.xml" value="0.22752990722656252" />
         <entry key="app/src/main/res/layout/fragment_slide4.xml" value="0.1849639892578125" />
-        <entry key="app/src/main/res/layout/item_player.xml" value="0.43483734130859386" />
+        <entry key="app/src/main/res/layout/item_leaderboard.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/item_player.xml" value="0.2570806100217865" />
         <entry key="app/src/main/res/layout/item_players.xml" value="0.1" />
       </map>
     </option>

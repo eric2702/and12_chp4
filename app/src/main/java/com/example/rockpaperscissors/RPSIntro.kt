@@ -15,15 +15,29 @@ import com.github.appintro.AppIntro
 
 class RPSIntro : AppIntro() {
 
+    private val playerSection: Slide1Fragment by lazy {
+        Slide1Fragment()
+    }
+
+    private val chooseEnemy: Slide2Fragment by lazy {
+        Slide2Fragment()
+    }
+
+    private val enemySection: Slide3Fragment by lazy {
+        Slide3Fragment()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        addSlide(Slide1Fragment())
-        addSlide(Slide2Fragment())
-        addSlide(Slide3Fragment())
+        addSlide(playerSection)
+        addSlide(chooseEnemy)
+        addSlide(enemySection)
+
         setIndicatorColor(Color.parseColor("#0070C0"), Color.parseColor("#C3DAE9"))
         setColorSkipButton(Color.parseColor("#0070C0"))
         setColorDoneText(Color.parseColor("#0070C0"))
+
         val separator: View = findViewById(com.github.appintro.R.id.bottom_separator)
         separator.setBackgroundColor(Color.parseColor("#ffffff"))
     }
@@ -41,7 +55,7 @@ class RPSIntro : AppIntro() {
 
     private fun launchToMenu() {
         val menuIntent = Intent(this, MenuActivity::class.java)
-        val name = findViewById<EditText>(R.id.edt_name_player1).text.toString().trim()
+        val name = findViewById<EditText>(R.id.edt_name_enemy).text.toString().trim()
         if (name == "") {
             Toast.makeText(this, "Masukkan Kedua Nama", Toast.LENGTH_SHORT).show()
         } else {
