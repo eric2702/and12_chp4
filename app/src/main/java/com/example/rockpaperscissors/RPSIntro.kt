@@ -4,13 +4,13 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import android.widget.EditText
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.example.rockpaperscissors.fragment.Slide1Fragment
 import com.example.rockpaperscissors.fragment.Slide2Fragment
 import com.example.rockpaperscissors.fragment.Slide3Fragment
+import com.example.rockpaperscissors.listener.FragmentImageResIdListener
+import com.example.rockpaperscissors.listener.FragmentTextListener
 import com.github.appintro.AppIntro
 
 class RPSIntro : AppIntro() {
@@ -44,7 +44,7 @@ class RPSIntro : AppIntro() {
 
     override fun onSkipPressed(currentFragment: Fragment?) {
         super.onSkipPressed(currentFragment)
-        val viewPager: ViewPager = findViewById(com.github.appintro.R.id.view_pager)
+        val viewPager : ViewPager = findViewById(com.github.appintro.R.id.view_pager)
         viewPager.currentItem = 2
     }
 
@@ -54,15 +54,36 @@ class RPSIntro : AppIntro() {
     }
 
     private fun launchToMenu() {
-        val menuIntent = Intent(this, MenuActivity::class.java)
-        val name = findViewById<EditText>(R.id.edt_name_enemy).text.toString().trim()
-        if (name == "") {
-            Toast.makeText(this, "Masukkan Kedua Nama", Toast.LENGTH_SHORT).show()
-        } else {
-            menuIntent.putExtra("NAME_DATA", name)
-            startActivity(menuIntent)
-            finish() //supaya pas diback dari main activity, ga ke intro lagi
-        }
+        // player section
+        val playerNameSection = playerSection as FragmentTextListener
+        val playerName = playerNameSection.getTextValue()
+
+        val playerAvatarSection = playerSection as FragmentImageResIdListener
+        val playerAvatar = playerAvatarSection.getAvatarId()
+        // end player section
+
+        // enemy section
+        val chooseEnemySection = chooseEnemy as FragmentTextListener
+        val enemyType = chooseEnemySection.getTextValue()
+
+        val enemyNameSection = enemySection as FragmentTextListener
+        val enemyName = enemyNameSection.getTextValue()
+
+        val enemyAvatarSection = enemySection as FragmentImageResIdListener
+        val enemyAvatar = enemyAvatarSection.getAvatarId()
+        // end enemy section
+
+        // Section to menu Activity
+        val intent = Intent(this, MenuActivity::class.java)
+
+        intent.putExtra(MenuActivity.PLAYER_NAME, playerName)
+        intent.putExtra(MenuActivity.PLAYER_AVATAR, playerAvatar)
+        intent.putExtra(MenuActivity.ENEMY_NAME, enemyName)
+        intent.putExtra(MenuActivity.ENEMY_AVATAR, enemyAvatar)
+        intent.putExtra(MenuActivity.ENEMY_TYPE, enemyType)
+
+        startActivity(intent)
+        finish()
     }
 
 }

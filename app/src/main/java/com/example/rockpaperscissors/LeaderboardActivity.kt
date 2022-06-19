@@ -58,9 +58,6 @@ class LeaderboardActivity : AppCompatActivity(), MainView {
                 }
             }
         }
-        plays.sortByDescending {
-            it.score
-        }
         leaderBoardAdapter.addList(plays)
     }
 

@@ -13,71 +13,71 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
         android:gravity="center"
-        android:text="@string/please_chose_your_avatar_player_one"
+        android:text="@string/please_chose_opponent_avatar"
         android:textStyle="bold"
         android:textSize="@dimen/_24sdp"
-        app:layout_constraintBottom_toTopOf="@+id/img_avatar2"
+        app:layout_constraintBottom_toTopOf="@+id/img_opponent_avatar2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/img_avatar1"
+        android:id="@+id/img_opponent_avatar1"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:padding="8dp"
         android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toStartOf="@+id/img_avatar2"
+        app:layout_constraintEnd_toStartOf="@+id/img_opponent_avatar2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_select_oponent3"
         app:srcCompat="@drawable/pngwing"
         tools:ignore="ContentDescription" />
 
     <ImageView
-        android:id="@+id/img_avatar2"
+        android:id="@+id/img_opponent_avatar2"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:padding="8dp"
         android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="@id/img_avatar3"
-        app:layout_constraintStart_toStartOf="@+id/img_avatar1"
+        app:layout_constraintEnd_toEndOf="@id/img_opponent_avatar3"
+        app:layout_constraintStart_toStartOf="@+id/img_opponent_avatar1"
         app:layout_constraintTop_toBottomOf="@+id/tv_select_oponent3"
         app:srcCompat="@drawable/pngwing2"
         tools:ignore="ContentDescription" />
 
     <ImageView
-        android:id="@+id/img_avatar3"
+        android:id="@+id/img_opponent_avatar3"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:padding="8dp"
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/img_avatar2"
+        app:layout_constraintStart_toEndOf="@+id/img_opponent_avatar2"
         app:layout_constraintTop_toBottomOf="@+id/tv_select_oponent3"
         app:srcCompat="@drawable/pngwing3"
         tools:ignore="ContentDescription" />
 
     <ImageView
-        android:id="@+id/img_avatar4"
+        android:id="@+id/img_opponent_avatar4"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:padding="8dp"
         app:layout_constraintBottom_toTopOf="@+id/tv_input_name_player2"
-        app:layout_constraintEnd_toEndOf="@+id/img_avatar2"
+        app:layout_constraintEnd_toEndOf="@+id/img_opponent_avatar2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_avatar2"
+        app:layout_constraintTop_toBottomOf="@+id/img_opponent_avatar2"
         app:srcCompat="@drawable/pngwing4"
         tools:ignore="ContentDescription" />
 
     <ImageView
-        android:id="@+id/img_avatar5"
+        android:id="@+id/img_opponent_avatar5"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:padding="8dp"
         app:layout_constraintBottom_toTopOf="@+id/tv_input_name_player2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/img_avatar4"
-        app:layout_constraintTop_toBottomOf="@+id/img_avatar2"
+        app:layout_constraintStart_toEndOf="@+id/img_opponent_avatar4"
+        app:layout_constraintTop_toBottomOf="@+id/img_opponent_avatar2"
         app:srcCompat="@drawable/pngwing5"
         tools:ignore="ContentDescription" />
 
@@ -86,13 +86,12 @@
         android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/input_your_name"
+        android:text="@string/input_enemy_name"
         android:textStyle="bold"
-        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/edt_name_enemy"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_avatar5" />
+        app:layout_constraintTop_toBottomOf="@+id/img_opponent_avatar5" />
 
     <EditText
         android:id="@+id/edt_name_enemy"
@@ -101,7 +100,6 @@
         android:layout_marginTop="10dp"
         android:layout_marginHorizontal="16dp"
         android:padding="16dp"
-        android:visibility="invisible"
         android:hint="@string/input_your_name"
         app:layout_constraintBottom_toTopOf="@id/btn_submit"
         app:layout_constraintEnd_toEndOf="parent"
@@ -115,7 +113,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="@string/submit"
-        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

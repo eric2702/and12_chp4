@@ -1,12 +1,13 @@
 package com.example.rockpaperscissors
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rockpaperscissors.databinding.ItemLeaderboardBinding
 import com.example.rockpaperscissors.model.Player
 
-class LeaderboardAdapter : RecyclerView.Adapter<LeaderboardAdapter.LeaderBoardViewHolder>() {
+class LeaderboardAdapter: RecyclerView.Adapter<LeaderboardAdapter.LeaderBoardViewHolder>() {
 
     private val listPlayer: MutableList<Player> = mutableListOf()
 
@@ -19,6 +20,7 @@ class LeaderboardAdapter : RecyclerView.Adapter<LeaderboardAdapter.LeaderBoardVi
     class LeaderBoardViewHolder(private val binding: ItemLeaderboardBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(player: Player) = with(binding) {
+            Log.e("player in view holder", player.toString())
             itemTvName.text = player.name
             itemTvScore.text = "Score : ${player.score}"
         }
