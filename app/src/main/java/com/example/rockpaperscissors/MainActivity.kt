@@ -168,7 +168,6 @@ class MainActivity : AppCompatActivity(), InsertView, CheckNameView, UpdateView 
             }
             opponentClick(binding!!.enemyScissors)
         }
-        // end section
 
         binding?.btnRefresh?.setOnClickListener {
             resetView()
