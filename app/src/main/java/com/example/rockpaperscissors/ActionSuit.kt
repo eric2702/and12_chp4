@@ -2,7 +2,7 @@ package com.example.rockpaperscissors
 
 import com.example.rockpaperscissors.model.ItemSuit
 
-abstract class ActionSuit(val itemSuit: ItemSuit) : Suit {
+abstract class ActionSuit(private val itemSuit: ItemSuit) : Suit {
 
     abstract fun menang(): ItemSuit // kalau ini batu, maka function ini adalah gunting
     abstract fun kalah(): ItemSuit
