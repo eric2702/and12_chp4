@@ -6,6 +6,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -75,6 +76,7 @@ class MainActivity : AppCompatActivity(), InsertView, CheckNameView, UpdateView 
 
         binding?.tvPlayerName?.text = playerName
         binding?.tvOpponentName?.text = enemyName
+        "Game Type : VS $enemyType".also { binding?.tvGameType?.text = it }
 
         // player press rock section
         binding?.playerRock?.setOnClickListener {
@@ -90,7 +92,6 @@ class MainActivity : AppCompatActivity(), InsertView, CheckNameView, UpdateView 
             } else {
                 playerVsCompClick(binding?.playerRock)
             }
-            Toast.makeText(this, "$playerName Memilih Batu", Toast.LENGTH_SHORT).show()
         }
         // end section
 
@@ -109,7 +110,6 @@ class MainActivity : AppCompatActivity(), InsertView, CheckNameView, UpdateView 
             } else {
                 playerVsCompClick(binding?.playerPaper)
             }
-            Toast.makeText(this, "$playerName Memilih Kertas", Toast.LENGTH_SHORT).show()
         }
         // end section
 
@@ -128,7 +128,6 @@ class MainActivity : AppCompatActivity(), InsertView, CheckNameView, UpdateView 
             } else {
                 playerVsCompClick(binding?.playerScissors)
             }
-            Toast.makeText(this, "$playerName Memilih Gunting", Toast.LENGTH_SHORT).show()
         }
         // end section
 
@@ -146,7 +145,7 @@ class MainActivity : AppCompatActivity(), InsertView, CheckNameView, UpdateView 
         // end section
 
         // opponent press paper section
-        binding?.playerPaper?.setOnClickListener {
+        binding?.enemyPaper?.setOnClickListener {
             if (!gameDone) {
                 if (player2pick == null) {
                     Toast.makeText(this, "$enemyName Memilih Kertas", Toast.LENGTH_SHORT).show()
@@ -159,7 +158,7 @@ class MainActivity : AppCompatActivity(), InsertView, CheckNameView, UpdateView 
         // end section
 
         // opponent press scissors section
-        binding?.playerScissors?.setOnClickListener {
+        binding?.enemyScissors?.setOnClickListener {
             if (!gameDone) {
                 if (player2pick == null) {
                     Toast.makeText(this, "$enemyName Memilih Gunting", Toast.LENGTH_SHORT).show()
@@ -177,6 +176,13 @@ class MainActivity : AppCompatActivity(), InsertView, CheckNameView, UpdateView 
 
         binding?.btnClose?.setOnClickListener {
             val intent = Intent(this@MainActivity, MenuActivity::class.java)
+
+            intent.putExtra(MenuActivity.PLAYER_NAME, playerName)
+            intent.putExtra(MenuActivity.PLAYER_AVATAR, playerAvatar)
+            intent.putExtra(MenuActivity.ENEMY_NAME, enemyName)
+            intent.putExtra(MenuActivity.ENEMY_AVATAR, enemyAvatar)
+            intent.putExtra(MenuActivity.ENEMY_TYPE, enemyType)
+
             startActivity(intent)
         }
     }
@@ -190,12 +196,21 @@ class MainActivity : AppCompatActivity(), InsertView, CheckNameView, UpdateView 
                 bundle.putString(PLAYER_NAME, playerName)
                 if (enemyType == "player") {
                     GlobalScope.launch {
-                        val player = playerDao?.getPlayerByName(playerName)?.first()
-                        runOnUiThread {
-                            if (player != null) {
-                                if (player.id!! > 0) {
-                                    player.score += 5
-                                    updatePresenter.updateDatabase(player)
+                        if (playerDao?.getPlayerByName(playerName)!!.isNotEmpty()) {
+                            val player = playerDao?.getPlayerByName(playerName)?.first()
+                            runOnUiThread {
+                                if (player != null) {
+                                    if (player.id!! > 0) {
+                                        player.score += 5
+                                        updatePresenter.updateDatabase(player)
+                                    } else {
+                                        val newPlayer = Player(
+                                            name = playerName,
+                                            score = 5,
+                                            avatar = playerAvatar
+                                        )
+                                        insertPresenter.saveToDatabase(newPlayer)
+                                    }
                                 } else {
                                     val newPlayer = Player(
                                         name = playerName,
@@ -204,14 +219,14 @@ class MainActivity : AppCompatActivity(), InsertView, CheckNameView, UpdateView 
                                     )
                                     insertPresenter.saveToDatabase(newPlayer)
                                 }
-                            } else {
-                                val newPlayer = Player(
-                                    name = playerName,
-                                    score = 5,
-                                    avatar = playerAvatar
-                                )
-                                insertPresenter.saveToDatabase(newPlayer)
                             }
+                        } else {
+                            val newPlayer = Player(
+                                name = playerName,
+                                score = 5,
+                                avatar = playerAvatar
+                            )
+                            insertPresenter.saveToDatabase(newPlayer)
                         }
                     }
                 }
@@ -223,12 +238,21 @@ class MainActivity : AppCompatActivity(), InsertView, CheckNameView, UpdateView 
                 bundle.putString(PLAYER_NAME, enemyName)
                 if (enemyType == "player") {
                     GlobalScope.launch {
-                        val player = playerDao?.getPlayerByName(enemyName)?.first()
-                        runOnUiThread {
-                            if (player != null) {
-                                if (player.id!! > 0) {
-                                    player.score += 5
-                                    updatePresenter.updateDatabase(player)
+                        if (playerDao?.getPlayerByName(enemyName)!!.isNotEmpty()) {
+                            val player = playerDao?.getPlayerByName(enemyName)?.first()
+                            runOnUiThread {
+                                if (player != null) {
+                                    if (player.id!! > 0) {
+                                        player.score += 5
+                                        updatePresenter.updateDatabase(player)
+                                    } else {
+                                        val newPlayer = Player(
+                                            name = enemyName,
+                                            score = 5,
+                                            avatar = enemyAvatar
+                                        )
+                                        insertPresenter.saveToDatabase(newPlayer)
+                                    }
                                 } else {
                                     val newPlayer = Player(
                                         name = enemyName,
@@ -237,14 +261,14 @@ class MainActivity : AppCompatActivity(), InsertView, CheckNameView, UpdateView 
                                     )
                                     insertPresenter.saveToDatabase(newPlayer)
                                 }
-                            } else {
-                                val newPlayer = Player(
-                                    name = enemyName,
-                                    score = 5,
-                                    avatar = enemyAvatar
-                                )
-                                insertPresenter.saveToDatabase(newPlayer)
                             }
+                        } else {
+                            val newPlayer = Player(
+                                name = enemyName,
+                                score = 5,
+                                avatar = enemyAvatar
+                            )
+                            insertPresenter.saveToDatabase(newPlayer)
                         }
                     }
                 }
@@ -252,6 +276,7 @@ class MainActivity : AppCompatActivity(), InsertView, CheckNameView, UpdateView 
             else -> {
                 binding?.tvResult?.visibility = View.GONE
                 binding?.tvVs?.text = getString(R.string.draw)
+                binding?.tvVs?.textSize = 32.0.toFloat()
                 binding?.tvVs?.visibility = View.VISIBLE
             }
         }
@@ -375,7 +400,12 @@ class MainActivity : AppCompatActivity(), InsertView, CheckNameView, UpdateView 
         disableColor(enemyScissors)
         tvVs.visibility = View.VISIBLE
         tvVs.text = getString(R.string.vs)
+        tvVs.textSize = 65.toFloat()
         tvResult.visibility = View.GONE
+        gameDone = false
+        player1pick = null
+        player2pick = null
+        picked = false
     }
 
     override fun context(): Context {

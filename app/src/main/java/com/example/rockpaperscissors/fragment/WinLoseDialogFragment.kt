@@ -5,17 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import com.example.rockpaperscissors.MainActivity
 import com.example.rockpaperscissors.databinding.DialogWinloseBinding
 
 class WinLoseDialogFragment : DialogFragment() {
-    private lateinit var binding: DialogWinloseBinding
+    private var _binding: DialogWinloseBinding? = null
+    private val binding get() = _binding
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DialogWinloseBinding.inflate(inflater)
-        return binding.root
+        _binding = DialogWinloseBinding.inflate(inflater)
+        return binding!!.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -23,16 +26,16 @@ class WinLoseDialogFragment : DialogFragment() {
         val bundle = arguments
         val nameData = bundle!!.getString(PLAYER_NAME, "")
         when (bundle.getString(RESULT, "")) {
-            "win" -> binding.hasil.text = "$nameData\nMENANG!"
-            "lose" -> binding.hasil.text = "$nameData\nMENANG!"
-            else -> binding.hasil.text = "SERI!"
+            "win" -> binding?.hasil?.text = "$nameData\nMENANG!"
+            "lose" -> binding?.hasil?.text = "$nameData\nMENANG!"
+            else -> binding?.hasil?.text = "SERI!"
         }
 
-        binding.kembaliMenu.setOnClickListener {
+        binding?.kembaliMenu?.setOnClickListener {
             dismiss()
             activity?.onBackPressed()
         }
-        binding.mainLagi.setOnClickListener {
+        binding?.mainLagi?.setOnClickListener {
             dismiss()
         }
     }

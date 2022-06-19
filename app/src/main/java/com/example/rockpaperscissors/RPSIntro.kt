@@ -75,6 +75,7 @@ class RPSIntro : AppIntro() {
 
         // Section to menu Activity
         val intent = Intent(this, MenuActivity::class.java)
+
         intent.putExtra(MenuActivity.PLAYER_NAME, playerName)
         intent.putExtra(MenuActivity.PLAYER_AVATAR, playerAvatar)
         intent.putExtra(MenuActivity.ENEMY_NAME, enemyName)

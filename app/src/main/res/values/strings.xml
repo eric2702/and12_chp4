@@ -31,4 +31,5 @@
     <string name="enemy_name">Enemy Name</string>
     <string name="input_enemy_name">Input Opponent Name</string>
     <string name="please_chose_opponent_avatar">Please Choose Avatar for Opponent</string>
+    <string name="type_of_game">Type of Game</string>
 </resources>
