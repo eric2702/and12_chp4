@@ -8,7 +8,7 @@
     tools:context=".MainActivity">
 
     <ImageView
-        android:id="@+id/close"
+        android:id="@+id/btn_close"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/_3sdp"
@@ -80,9 +80,8 @@
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
     </LinearLayout>
 
-
     <TextView
-        android:id="@+id/versus"
+        android:id="@+id/tv_vs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/delius_bold"
@@ -93,12 +92,12 @@
         android:textSize="@dimen/_50sdp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/paperCom"
-        app:layout_constraintStart_toEndOf="@+id/paper"
+        app:layout_constraintEnd_toStartOf="@+id/enemy_paper"
+        app:layout_constraintStart_toEndOf="@+id/player_scissors"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/win"
+        android:id="@+id/tv_result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#92D050"
@@ -116,45 +115,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/lose"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#FF0000"
-        android:fontFamily="@font/delius_bold"
-        android:gravity="center"
-        android:padding="@dimen/_3sdp"
-        android:rotation="-10"
-        android:text="@string/com_n_menang"
-        android:textColor="#FFFFFF"
-        android:textSize="@dimen/_12sdp"
-        android:textStyle="bold"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/draw"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#0070C0"
-        android:fontFamily="@font/delius_bold"
-        android:gravity="center"
-        android:padding="@dimen/_3sdp"
-        android:rotation="-10"
-        android:text="@string/draw"
-        android:textColor="#FFFFFF"
-        android:textSize="@dimen/_18sdp"
-        android:textStyle="bold"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/pemain1"
+        android:id="@+id/tv_player_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -162,19 +123,19 @@
         android:textColor="#03B0F0"
         android:textSize="@dimen/_15sdp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/rock"
+        app:layout_constraintBottom_toTopOf="@+id/player_rock"
         app:layout_constraintEnd_toStartOf="@+id/guideline11"
         app:layout_constraintStart_toStartOf="parent" />
 
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/rock"
+        android:id="@+id/player_rock"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="@dimen/_15sdp"
         app:cardCornerRadius="10dp"
         app:cardElevation="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/paper"
+        app:layout_constraintBottom_toTopOf="@+id/player_paper"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toStartOf="@+id/guideline11"
         app:layout_constraintHeight_percent="0.1"
@@ -190,7 +151,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/paper"
+        android:id="@+id/player_paper"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:cardCornerRadius="10dp"
@@ -212,7 +173,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/scissors"
+        android:id="@+id/player_scissors"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/_15sdp"
@@ -222,7 +183,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline11"
         app:layout_constraintHeight_percent="0.1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/paper">
+        app:layout_constraintTop_toBottomOf="@+id/player_paper">
 
         <ImageView
             android:layout_width="match_parent"
@@ -234,7 +195,7 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/tv_input_name_player2"
+        android:id="@+id/tv_opponent_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -242,19 +203,19 @@
         android:textColor="#03B0F0"
         android:textSize="@dimen/_15sdp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/rockCom"
+        app:layout_constraintBottom_toTopOf="@+id/enemy_rock"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline11" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/rockCom"
+        android:id="@+id/enemy_rock"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="@dimen/_15sdp"
         android:src="@drawable/img_batu"
         app:cardCornerRadius="10dp"
         app:cardElevation="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/paperCom"
+        app:layout_constraintBottom_toTopOf="@+id/enemy_paper"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.1"
@@ -270,7 +231,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/paperCom"
+        android:id="@+id/enemy_paper"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:src="@drawable/img_kertas"
@@ -293,7 +254,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/scissorsCom"
+        android:id="@+id/enemy_scissors"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/_15sdp"
@@ -304,7 +265,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.1"
         app:layout_constraintStart_toStartOf="@+id/guideline11"
-        app:layout_constraintTop_toBottomOf="@+id/paperCom">
+        app:layout_constraintTop_toBottomOf="@+id/enemy_paper">
 
         <ImageView
             android:layout_width="match_parent"
@@ -316,7 +277,7 @@
     </androidx.cardview.widget.CardView>
 
     <ImageView
-        android:id="@+id/refresh"
+        android:id="@+id/btn_refresh"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:src="@drawable/img_refresh"

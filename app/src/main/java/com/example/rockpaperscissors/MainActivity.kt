@@ -1,6 +1,8 @@
 package com.example.rockpaperscissors
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
@@ -20,44 +22,39 @@ import com.example.rockpaperscissors.view.InsertView
 import java.util.*
 
 class MainActivity : AppCompatActivity(), InsertView {
+
     private val handler = Handler()
+
     private var _binding: ActivityMainBinding? = null
-    private lateinit var binding: ActivityMainBinding
+    private val binding get() = _binding
+
     private val insertPresenter: InsertPresenter = InsertPresenterImpl(this)
-    private val nameData: String by lazy {
-        intent.getStringExtra("NAME_DATA").toString()
+
+    private val playerName: String by lazy {
+        intent.getStringExtra(PLAYER_NAME).toString()
+    }
+    private val playerAvatar: Int by lazy {
+        intent.getIntExtra(PLAYER_AVATAR, R.drawable.pngwing)
+    }
+    private val enemyName: String by lazy {
+        intent.getStringExtra(ENEMY_NAME).toString()
+    }
+    private val enemyAvatar: Int by lazy {
+        intent.getIntExtra(ENEMY_AVATAR, R.drawable.pngwing)
+    }
+    private val enemyType: String by lazy {
+        intent.getStringExtra(ENEMY_TYPE).toString()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        val rock = binding.rock
-        val paper = binding.paper
-        val scissors = binding.scissors
-        val refresh = binding.refresh
-        val rockCom = binding.rockCom
-        val paperCom = binding.paperCom
-        val scissorsCom = binding.scissorsCom
-        val versus = binding.versus
-        val win = binding.win
-        val lose = binding.lose
-        val draw = binding.draw
-        val close = binding.close
-        val pemain1 = binding.pemain1
+        _binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding?.root)
 
-        val allChoices = listOf(rock, paper, scissors, rockCom, paperCom, scissorsCom)
-        val comChoices = listOf(rockCom, paperCom, scissorsCom)
-        pemain1.text = nameData
-        win.text = "$nameData \nMenang"
+        binding?.tvPlayerName?.text = playerName
+        binding?.tvOpponentName?.text = enemyName
 
-        fun reset() {
-            allChoices.map { it.setCardBackgroundColor(Color.WHITE) }
-            versus.visibility = View.VISIBLE
-            win.visibility = View.INVISIBLE
-            lose.visibility = View.INVISIBLE
-            draw.visibility = View.INVISIBLE
-        }
+        val compChoice = listOf(binding?.enemyRock, binding?.enemyPaper, binding?.enemyScissors)
 
         fun activateColor(choice: CardView) {
             choice.setCardBackgroundColor(Color.parseColor("#C3DAE9"))
@@ -73,104 +70,117 @@ class MainActivity : AppCompatActivity(), InsertView {
         fun showMessage(condition: String) {
             when (condition) {
                 "win" -> {
-                    win.visibility = View.VISIBLE
-                    bundle.putString("NAME_DATA", nameData)
+                    binding?.tvResult?.visibility = View.VISIBLE
+                    binding?.tvVs?.visibility = View.GONE
+                    bundle.putString(PLAYER_NAME, playerName)
                     val newPlayer = Player(
-                        name = nameData,
-                        score = 5
+                        name = playerName,
+                        score = 5,
+                        avatar = playerAvatar
                     )
-                    insertPresenter.saveToDatabase(newPlayer)
+//                    insertPresenter.saveToDatabase(newPlayer)
                 }
                 "lose" -> {
-                    lose.visibility = View.VISIBLE
-                    bundle.putString("NAME_DATA", "CPU")
+                    binding?.tvResult?.visibility = View.VISIBLE
+                    binding?.tvVs?.visibility = View.GONE
+                    bundle.putString(PLAYER_NAME, enemyName)
                     val newPlayer = Player(
-                        name = "CPU",
-                        score = 5
+                        name = enemyName,
+                        score = 5,
+                        avatar = enemyAvatar
                     )
-                    insertPresenter.saveToDatabase(newPlayer)
+//                    insertPresenter.saveToDatabase(newPlayer)
                 }
                 else -> {
-                    draw.visibility = View.VISIBLE
+                    binding?.tvVs?.text = getString(R.string.draw)
+                    binding?.tvVs?.visibility = View.VISIBLE
                 }
             }
         }
 
         fun playerClick(choice: CardView? = null) {
-            reset()
             choice?.let {
-                activateColor(choice)
                 val suitUser: Suit = when (choice) {
-                    rock -> BatuAction()
-                    paper -> KertasAction()
+                    binding?.playerRock -> BatuAction()
+                    binding?.playerPaper -> KertasAction()
                     else -> GuntingAction()
                 }
                 val suitCom = DataSources.getRandomSuit()
-                handler.removeCallbacksAndMessages(null) //remove postdelayed animation
                 var delay: Long = 0
                 for (i in 0..2) {
-                    comChoices.map {
+                    compChoice.map {
                         handler.postDelayed({
-                            activateColor(it)
+                            if (it != null) {
+                                activateColor(it)
+                            }
                         }, delay)
                         delay += 500
                         handler.postDelayed({
-                            disableColor(it)
+                            if (it != null) {
+                                disableColor(it)
+                            }
                         }, delay)
                     }
                 }
                 handler.postDelayed({
                     when (suitCom.name) {
-                        "batu" -> activateColor(rockCom)
-                        "kertas" -> activateColor(paperCom)
-                        else -> activateColor(scissorsCom)
+                        "batu" -> activateColor(binding!!.enemyRock)
+                        "kertas" -> activateColor(binding!!.enemyPaper)
+                        else -> activateColor(binding!!.enemyScissors)
                     }
-                    val toastMessage = "CPU Memilih " + suitCom.name.replaceFirstChar {
+                    val toastMessage = "$enemyName Memilih " + suitCom.name.replaceFirstChar {
                         if (it.isLowerCase()) it.titlecase(
                             Locale.ROOT
                         ) else it.toString()
                     }
                     Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT).show()
                     val result = suitUser.action(suitCom.name)
-                    versus.visibility = View.INVISIBLE
+
                     showMessage(result)
 
-                    bundle.putString("RESULT", result)
+                    bundle.putString(RESULT, result)
                     dialogWinLoseFragment.arguments = bundle
                     dialogWinLoseFragment.show(supportFragmentManager, null)
                 }, delay)
             }
         }
 
-        rock.setOnClickListener {
-            playerClick(rock)
-            Toast.makeText(this, "$nameData Memilih Batu", Toast.LENGTH_SHORT).show()
+        binding?.playerRock?.setOnClickListener {
+            playerClick(binding?.playerRock)
+            Toast.makeText(this, "$playerName Memilih Batu", Toast.LENGTH_SHORT).show()
         }
 
-        paper.setOnClickListener {
-            playerClick(paper)
-            Toast.makeText(this, "$nameData Memilih Kertas", Toast.LENGTH_SHORT).show()
+        binding?.playerPaper?.setOnClickListener {
+            playerClick(binding?.playerPaper)
+            Toast.makeText(this, "$playerName Memilih Kertas", Toast.LENGTH_SHORT).show()
         }
 
-        scissors.setOnClickListener {
-            playerClick(scissors)
-            Toast.makeText(this, "$nameData Memilih Gunting", Toast.LENGTH_SHORT).show()
+        binding?.playerScissors?.setOnClickListener {
+            playerClick(binding?.playerScissors)
+            Toast.makeText(this, "$playerName Memilih Gunting", Toast.LENGTH_SHORT).show()
         }
 
-        refresh.setOnClickListener {
-            playerClick()
-            handler.removeCallbacksAndMessages(null) //remove postdelayed animation
-
+        binding?.btnRefresh?.setOnClickListener {
+            resetView()
         }
-        close.setOnClickListener {
-            onBackPressed()
-            handler.removeCallbacksAndMessages(null) //remove postdelayed animation
+
+        binding?.btnClose?.setOnClickListener {
+            val intent = Intent(this@MainActivity, MenuActivity::class.java)
+            startActivity(intent)
         }
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        handler.removeCallbacksAndMessages(null) //remove postdelayed animation
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private fun resetView() = with(binding){
+        this!!.playerRock.background = getDrawable(R.drawable.background_unselect)
+        this.playerPaper.background = getDrawable(R.drawable.background_unselect)
+        this.playerScissors.background = getDrawable(R.drawable.background_unselect)
+        this.enemyRock.background = getDrawable(R.drawable.background_unselect)
+        this.enemyPaper.background = getDrawable(R.drawable.background_unselect)
+        this.enemyScissors.background = getDrawable(R.drawable.background_unselect)
+        this.tvVs.visibility = View.VISIBLE
+        this.tvVs.text = getString(R.string.vs)
+        this.tvResult.visibility = View.GONE
     }
 
     override fun context(): Context {
@@ -178,4 +188,13 @@ class MainActivity : AppCompatActivity(), InsertView {
     }
 
     override fun onSaveDatabase() {}
+
+    companion object {
+        const val PLAYER_NAME = "PLAYER_NAME"
+        const val PLAYER_AVATAR = "PLAYER_AVATAR"
+        const val ENEMY_NAME = "ENEMY_NAME"
+        const val ENEMY_TYPE = "ENEMY_TYPE"
+        const val ENEMY_AVATAR = "ENEMY_AVATAR"
+        const val RESULT = "RESULT"
+    }
 }

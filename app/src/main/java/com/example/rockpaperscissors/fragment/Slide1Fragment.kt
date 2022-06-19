@@ -1,12 +1,12 @@
 package com.example.rockpaperscissors.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat.getDrawable
+import androidx.fragment.app.Fragment
 import com.example.rockpaperscissors.R
 import com.example.rockpaperscissors.databinding.FragmentSlide1Binding
 import com.example.rockpaperscissors.listener.FragmentImageResIdListener
@@ -30,47 +30,72 @@ class Slide1Fragment : Fragment(), FragmentTextListener, FragmentImageResIdListe
         super.onViewCreated(view, savedInstanceState)
 
         binding?.imgAvatar1?.setOnClickListener {
-            binding!!.imgAvatar1.background = getDrawable(it.context, R.drawable.background_selected)
-            binding!!.imgAvatar2.background = getDrawable(it.context, R.drawable.background_unselect)
-            binding!!.imgAvatar3.background = getDrawable(it.context, R.drawable.background_unselect)
-            binding!!.imgAvatar4.background = getDrawable(it.context, R.drawable.background_unselect)
-            binding!!.imgAvatar5.background = getDrawable(it.context, R.drawable.background_unselect)
+            binding!!.imgAvatar1.background =
+                getDrawable(it.context, R.drawable.background_selected)
+            binding!!.imgAvatar2.background =
+                getDrawable(it.context, R.drawable.background_unselect)
+            binding!!.imgAvatar3.background =
+                getDrawable(it.context, R.drawable.background_unselect)
+            binding!!.imgAvatar4.background =
+                getDrawable(it.context, R.drawable.background_unselect)
+            binding!!.imgAvatar5.background =
+                getDrawable(it.context, R.drawable.background_unselect)
             avatar = R.drawable.pngwing
         }
 
         binding?.imgAvatar2?.setOnClickListener {
-            binding!!.imgAvatar2.background = getDrawable(it.context, R.drawable.background_selected)
-            binding!!.imgAvatar1.background = getDrawable(it.context, R.drawable.background_unselect)
-            binding!!.imgAvatar3.background = getDrawable(it.context, R.drawable.background_unselect)
-            binding!!.imgAvatar4.background = getDrawable(it.context, R.drawable.background_unselect)
-            binding!!.imgAvatar5.background = getDrawable(it.context, R.drawable.background_unselect)
+            binding!!.imgAvatar2.background =
+                getDrawable(it.context, R.drawable.background_selected)
+            binding!!.imgAvatar1.background =
+                getDrawable(it.context, R.drawable.background_unselect)
+            binding!!.imgAvatar3.background =
+                getDrawable(it.context, R.drawable.background_unselect)
+            binding!!.imgAvatar4.background =
+                getDrawable(it.context, R.drawable.background_unselect)
+            binding!!.imgAvatar5.background =
+                getDrawable(it.context, R.drawable.background_unselect)
             avatar = R.drawable.pngwing2
         }
 
         binding?.imgAvatar3?.setOnClickListener {
-            binding!!.imgAvatar3.background = getDrawable(it.context, R.drawable.background_selected)
-            binding!!.imgAvatar2.background = getDrawable(it.context, R.drawable.background_unselect)
-            binding!!.imgAvatar1.background = getDrawable(it.context, R.drawable.background_unselect)
-            binding!!.imgAvatar4.background = getDrawable(it.context, R.drawable.background_unselect)
-            binding!!.imgAvatar5.background = getDrawable(it.context, R.drawable.background_unselect)
+            binding!!.imgAvatar3.background =
+                getDrawable(it.context, R.drawable.background_selected)
+            binding!!.imgAvatar2.background =
+                getDrawable(it.context, R.drawable.background_unselect)
+            binding!!.imgAvatar1.background =
+                getDrawable(it.context, R.drawable.background_unselect)
+            binding!!.imgAvatar4.background =
+                getDrawable(it.context, R.drawable.background_unselect)
+            binding!!.imgAvatar5.background =
+                getDrawable(it.context, R.drawable.background_unselect)
             avatar = R.drawable.pngwing3
         }
 
         binding?.imgAvatar4?.setOnClickListener {
-            binding!!.imgAvatar4.background = getDrawable(it.context, R.drawable.background_selected)
-            binding!!.imgAvatar2.background = getDrawable(it.context, R.drawable.background_unselect)
-            binding!!.imgAvatar3.background = getDrawable(it.context, R.drawable.background_unselect)
-            binding!!.imgAvatar1.background = getDrawable(it.context, R.drawable.background_unselect)
-            binding!!.imgAvatar5.background = getDrawable(it.context, R.drawable.background_unselect)
+            binding!!.imgAvatar4.background =
+                getDrawable(it.context, R.drawable.background_selected)
+            binding!!.imgAvatar2.background =
+                getDrawable(it.context, R.drawable.background_unselect)
+            binding!!.imgAvatar3.background =
+                getDrawable(it.context, R.drawable.background_unselect)
+            binding!!.imgAvatar1.background =
+                getDrawable(it.context, R.drawable.background_unselect)
+            binding!!.imgAvatar5.background =
+                getDrawable(it.context, R.drawable.background_unselect)
             avatar = R.drawable.pngwing4
         }
 
         binding?.imgAvatar5?.setOnClickListener {
-            binding!!.imgAvatar5.background = getDrawable(it.context, R.drawable.background_selected)
-            binding!!.imgAvatar2.background = getDrawable(it.context, R.drawable.background_unselect)
-            binding!!.imgAvatar3.background = getDrawable(it.context, R.drawable.background_unselect)
-            binding!!.imgAvatar4.background = getDrawable(it.context, R.drawable.background_unselect)
-            binding!!.imgAvatar1.background = getDrawable(it.context, R.drawable.background_unselect)
+            binding!!.imgAvatar5.background =
+                getDrawable(it.context, R.drawable.background_selected)
+            binding!!.imgAvatar2.background =
+                getDrawable(it.context, R.drawable.background_unselect)
+            binding!!.imgAvatar3.background =
+                getDrawable(it.context, R.drawable.background_unselect)
+            binding!!.imgAvatar4.background =
+                getDrawable(it.context, R.drawable.background_unselect)
+            binding!!.imgAvatar1.background =
+                getDrawable(it.context, R.drawable.background_unselect)
             avatar = R.drawable.pngwing5
         }
 
@@ -78,11 +103,19 @@ class Slide1Fragment : Fragment(), FragmentTextListener, FragmentImageResIdListe
             if (binding!!.edtNamePlayer.text.isEmpty()) {
                 binding!!.edtNamePlayer.error = "Please fill the name first"
             } else {
-                Toast.makeText(
-                    this.context,
-                    "${binding!!.edtNamePlayer.text} Selected avatar",
-                    Toast.LENGTH_LONG
-                ).show()
+                if (avatar == 0) {
+                    Toast.makeText(
+                        this.context,
+                        "Please select avatar first!",
+                        Toast.LENGTH_LONG
+                    ).show()
+                } else {
+                    Toast.makeText(
+                        this.context,
+                        "${binding!!.edtNamePlayer.text} Selected avatar",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
             }
         }
     }

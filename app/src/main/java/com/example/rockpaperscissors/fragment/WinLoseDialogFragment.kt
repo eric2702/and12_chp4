@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.example.rockpaperscissors.databinding.DialogWinloseBinding
 
-
 class WinLoseDialogFragment : DialogFragment() {
     private lateinit var binding: DialogWinloseBinding
     override fun onCreateView(
@@ -22,8 +21,8 @@ class WinLoseDialogFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val bundle = arguments
-        val nameData = bundle!!.getString("NAME_DATA", "")
-        when (bundle.getString("RESULT", "")) {
+        val nameData = bundle!!.getString(PLAYER_NAME, "")
+        when (bundle.getString(RESULT, "")) {
             "win" -> binding.hasil.text = "$nameData\nMENANG!"
             "lose" -> binding.hasil.text = "$nameData\nMENANG!"
             else -> binding.hasil.text = "SERI!"
@@ -44,5 +43,10 @@ class WinLoseDialogFragment : DialogFragment() {
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
+    }
+
+    companion object {
+        const val PLAYER_NAME = "PLAYER_NAME"
+        const val RESULT = "RESULT"
     }
 }

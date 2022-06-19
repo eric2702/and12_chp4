@@ -109,14 +109,16 @@ class Main2Activity : AppCompatActivity(), InsertView, CheckNameView, UpdateView
                                 } else {
                                     val newPlayer = Player(
                                         name = nameData,
-                                        score = 5
+                                        score = 5,
+                                        avatar = R.drawable.pngwing
                                     )
                                     insertPresenter.saveToDatabase(newPlayer)
                                 }
                             } else {
                                 val newPlayer = Player(
                                     name = nameData,
-                                    score = 5
+                                    score = 5,
+                                    avatar = R.drawable.pngwing
                                 )
                                 insertPresenter.saveToDatabase(newPlayer)
                             }
@@ -128,7 +130,8 @@ class Main2Activity : AppCompatActivity(), InsertView, CheckNameView, UpdateView
                     bundle.putString("NAME_DATA", "Pemain 2")
                     val newPlayer = Player(
                         name = "Pemain 2",
-                        score = 5
+                        score = 5,
+                        avatar = R.drawable.pngwing
                     )
                     insertPresenter.saveToDatabase(newPlayer)
                 }

@@ -1,12 +1,12 @@
 package com.example.rockpaperscissors.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat.getDrawable
+import androidx.fragment.app.Fragment
 import com.example.rockpaperscissors.R
 import com.example.rockpaperscissors.databinding.FragmentSlide2Binding
 import com.example.rockpaperscissors.listener.FragmentTextListener
@@ -30,18 +30,32 @@ class Slide2Fragment : Fragment(), FragmentTextListener {
 
         binding?.imgVsPlayer?.setOnClickListener {
             enemy = "player"
-            binding!!.imgVsPlayer.background = getDrawable(it.context, R.drawable.background_selected)
+            binding!!.imgVsPlayer.background =
+                getDrawable(it.context, R.drawable.background_selected)
             binding!!.imgVsComp.background = getDrawable(it.context, R.drawable.background_unselect)
         }
 
         binding?.imgVsComp?.setOnClickListener {
             enemy = "computer"
-            binding!!.imgVsPlayer.background = getDrawable(it.context, R.drawable.background_unselect)
+            binding!!.imgVsPlayer.background =
+                getDrawable(it.context, R.drawable.background_unselect)
             binding!!.imgVsComp.background = getDrawable(it.context, R.drawable.background_selected)
         }
 
         binding?.btnEnter?.setOnClickListener {
-            Toast.makeText(this.context, "Player choose $enemy as enemy", Toast.LENGTH_LONG).show()
+            if (enemy.isEmpty()) {
+                Toast.makeText(
+                    this.context,
+                    "Please select enemy first!",
+                    Toast.LENGTH_LONG
+                ).show()
+            } else {
+                Toast.makeText(
+                    this.context,
+                    "Player choose $enemy as enemy",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
         }
     }
 

@@ -12,6 +12,9 @@ data class Player (
     @ColumnInfo(name = "name")
     var name: String,
 
+    @ColumnInfo(name = "avatar")
+    var avatar: Int,
+
     @ColumnInfo(name = "score")
     var score: Int,
 )
