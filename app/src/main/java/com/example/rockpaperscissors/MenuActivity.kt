@@ -1,68 +1,93 @@
 package com.example.rockpaperscissors
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.rockpaperscissors.databinding.ActivityMenuBinding
 import com.google.android.material.snackbar.Snackbar
 
 class MenuActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMenuBinding
+
+    private var _binding: ActivityMenuBinding? = null
+    private val binding get() = _binding
+    private val playerName: String by lazy {
+        intent.getStringExtra(PLAYER_NAME).toString()
+    }
+    private val enemyName: String by lazy {
+        intent.getStringExtra(ENEMY_NAME).toString()
+    }
+    private val enemyType: String by lazy {
+        intent.getStringExtra(ENEMY_TYPE).toString()
+    }
+    private val playerAvatar: Int by lazy {
+        intent.getIntExtra(PLAYER_AVATAR, R.drawable.pngwing)
+    }
+    private val enemyAvatar: Int by lazy {
+        intent.getIntExtra(ENEMY_AVATAR, R.drawable.pngwing)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMenuBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+        _binding = ActivityMenuBinding.inflate(layoutInflater)
+        setContentView(binding?.root)
 
-        val nameData = intent.getStringExtra("NAME_DATA").toString()
-        setMenuName(nameData)
+        val message = "Selamat Datang $playerName"
+        val snackBar = binding?.let { Snackbar.make(it.root, message, Snackbar.LENGTH_LONG) }
+        snackBar?.setActionTextColor(Color.parseColor("#ff0000"))
+        snackBar?.setAction("Tutup") {
+            snackBar.dismiss()
+        }
+        snackBar?.show()
 
-        val message = "Selamat Datang $nameData"
-        val snackbar = Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG)
-        snackbar.setActionTextColor(Color.parseColor("#ff0000"))
-        snackbar.setAction("Tutup") {
-            snackbar.dismiss()
+        binding?.btnPlayGame?.setOnClickListener {
+            launchToMainGame()
         }
-        snackbar.show()
-        binding.comMenuImg.setOnClickListener {
-            launchToMain()
+
+        binding?.let {
+            Glide.with(this)
+                .load(playerAvatar)
+                .apply(RequestOptions().override(120, 120))
+                .into(it.imgPlayer)
         }
-        binding.comMenuTxt.setOnClickListener {
-            launchToMain()
+
+        binding?.let {
+            Glide.with(this)
+                .load(enemyAvatar)
+                .apply(RequestOptions().override(120, 120))
+                .into(it.imgEnemy)
         }
-        binding.pemainMenuImg.setOnClickListener {
-            launchToMain2()
-        }
-        binding.pemainMenuTxt.setOnClickListener {
-            launchToMain2()
-        }
-        binding.btnLead.setOnClickListener {
+
+        binding?.tvPlayer?.text = playerName
+        binding?.tvEnemy?.text = enemyName
+
+        binding?.btnLeaderboard?.setOnClickListener {
             launchToLeaderboard()
         }
     }
 
-    private fun launchToMain() {
-        val mainIntent = Intent(this, MainActivity::class.java) //dari splash ke main activity
-        mainIntent.putExtra("NAME_DATA", intent.getStringExtra("NAME_DATA").toString());
-        startActivity(mainIntent)
-    }
-
-    private fun launchToMain2() {
-        val main2Intent = Intent(this, Main2Activity::class.java) //dari splash ke main activity
-        main2Intent.putExtra("NAME_DATA", intent.getStringExtra("NAME_DATA").toString());
-        startActivity(main2Intent)
+    private fun launchToMainGame() {
+        val intent = Intent(this@MenuActivity, MainActivity::class.java)
+        intent.putExtra(MainActivity.PLAYER_NAME, playerName)
+        intent.putExtra(MainActivity.PLAYER_AVATAR, playerAvatar)
+        intent.putExtra(MainActivity.ENEMY_NAME, enemyName)
+        intent.putExtra(MainActivity.ENEMY_AVATAR, enemyAvatar)
+        intent.putExtra(MainActivity.ENEMY_TYPE, enemyType)
+        startActivity(intent)
     }
 
     private fun launchToLeaderboard() {
-        val leadIntent = Intent(this, LeaderboardActivity::class.java)
-        startActivity(leadIntent)
+        val intent = Intent(this@MenuActivity, LeaderboardActivity::class.java)
+        startActivity(intent)
     }
 
-    @SuppressLint("SetTextI18n")
-    private fun setMenuName(nameData: String) {
-        binding.pemainMenuTxt.text = "$nameData VS Pemain"
-        binding.comMenuTxt.text = "$nameData VS CPU"
+    companion object {
+        const val PLAYER_NAME = "PLAYER_NAME"
+        const val PLAYER_AVATAR = "PLAYER_AVATAR"
+        const val ENEMY_NAME = "ENEMY_NAME"
+        const val ENEMY_TYPE = "ENEMY_TYPE"
+        const val ENEMY_AVATAR = "ENEMY_AVATAR"
     }
 }

@@ -3,6 +3,7 @@ package com.example.rockpaperscissors
 import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rockpaperscissors.databinding.ActivityLeaderboardBinding
 import com.example.rockpaperscissors.model.Player
@@ -27,6 +28,7 @@ class LeaderboardActivity : AppCompatActivity(), MainView {
     }
 
     private fun setupView() = with(binding) {
+        this?.noLeaderboardData?.text = getString(R.string.no_leaderboard_data)
         this?.rvLeaderboard?.layoutManager = LinearLayoutManager(context())
         this?.rvLeaderboard?.adapter = leaderBoardAdapter
     }
@@ -36,7 +38,27 @@ class LeaderboardActivity : AppCompatActivity(), MainView {
     }
 
     override fun onResultDatabase(players: List<Player>) {
-        leaderBoardAdapter.addList(players)
+        binding?.rvLeaderboard?.isVisible = players.isNotEmpty()
+        binding?.noLeaderboardData?.isVisible = players.isEmpty()
+        val plays: ArrayList<Player> = ArrayList()
+        for (player in players) {
+            if (plays.isEmpty()) {
+                plays.add(player)
+            } else {
+                var counter = 0
+                for (play in plays) {
+                    if (play.name == player.name) {
+                        play.score += player.score
+                    } else {
+                        counter++
+                    }
+                }
+                if (counter == plays.size) {
+                    plays.add(player)
+                }
+            }
+        }
+        leaderBoardAdapter.addList(plays)
     }
 
     override fun onDestroy() {

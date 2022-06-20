@@ -7,8 +7,8 @@ import androidx.room.RoomDatabase
 import com.example.rockpaperscissors.model.Player
 
 @Database(entities = [Player::class], version = 1)
-abstract  class PlayerDatabase : RoomDatabase() {
-    abstract  fun playerDao(): PlayerDao
+abstract class PlayerDatabase : RoomDatabase() {
+    abstract fun playerDao(): PlayerDao
 
     companion object {
         private var _instance: PlayerDatabase? = null

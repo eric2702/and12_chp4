@@ -7,10 +7,13 @@ import androidx.room.ColumnInfo
 @Entity
 data class Player (
     @PrimaryKey(autoGenerate = true)
-    val id: Int? = null,
+    var id: Int? = null,
 
     @ColumnInfo(name = "name")
-    val name: String,
+    var name: String,
+
+    @ColumnInfo(name = "avatar")
+    var avatar: Int,
 
     @ColumnInfo(name = "score")
     var score: Int,

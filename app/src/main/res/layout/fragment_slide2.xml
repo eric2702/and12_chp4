@@ -14,34 +14,39 @@
         android:layout_marginTop="50dp"
         android:text="@string/pilih_permainan"
         android:textStyle="bold"
+        android:textSize="@dimen/_24sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="111dp"
-        android:layout_height="77dp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toStartOf="@+id/imageView2"
+        android:id="@+id/img_vs_player"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_120sdp"
+        android:padding="16dp"
+        android:layout_margin="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_enter"
+        app:layout_constraintEnd_toStartOf="@+id/img_vs_comp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_lp2"
         app:srcCompat="@drawable/img_lp1"
         tools:ignore="ContentDescription" />
 
     <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="106dp"
-        android:layout_height="78dp"
-        android:layout_marginEnd="64dp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        android:id="@+id/img_vs_comp"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_120sdp"
+        android:padding="16dp"
+        android:layout_margin="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_enter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_lp2"
+        app:layout_constraintStart_toEndOf="@id/img_vs_player"
         app:srcCompat="@drawable/img_lp2"
         tools:ignore="ContentDescription" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btn_enter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/enter"
